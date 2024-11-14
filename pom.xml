@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>xyz.syodo</groupId>
+    <artifactId>VersionBypass</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://www.jitpack.io</url>
+        </repository>
+        <repository>
+            <id>opencollab-repository-maven-releases</id>
+            <name>Opencollab Repository releases</name>
+            <url>https://repo.opencollab.dev/maven-releases</url>
+        </repository>
+        <repository>
+            <id>opencollab-repository-maven-snapshots</id>
+            <name>Opencollab Repository snapshots</name>
+            <url>https://repo.opencollab.dev/maven-snapshots</url>
+        </repository>
+        <repository>
+            <id>storehouse</id>
+            <name>storehouse snapshots</name>
+            <url>https://storehouse.okaeri.eu/repository/maven-public</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>plugin.yml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.PowerNukkitX</groupId>
+            <artifactId>PowerNukkitX</artifactId>
+            <version>09977ad540</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>xyz.syodo</groupId>
+            <artifactId>plugin</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.PowerNukkitX</groupId>
+            <artifactId>PowerNukkitX</artifactId>
+            <version>c2116a334b</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.AllayMC</groupId>
+            <artifactId>fast-reflection</artifactId>
+            <version>8733a599fa</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

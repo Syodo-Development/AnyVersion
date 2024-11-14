@@ -1,0 +1,6 @@
+name: VersionBypass
+version: 1.0.0
+api: 2.0.0
+main: xyz.syodo.VersionBypass
+depend: [SyoCore]
+author: Buddelbubi
