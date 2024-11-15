@@ -1,5 +1,6 @@
 package xyz.syodo.manager;
 
+import cn.nukkit.network.process.DataPacketManager;
 import cn.nukkit.network.protocol.DataPacket;
 import xyz.syodo.packets.*;
 
@@ -24,6 +25,7 @@ public class PacketManager {
         addPacket(PCameraPresetsPacket.class);
         addPacket(PChangeDimensionPacket.class);
         addPacket(PDisconnectPacket.class);
+        addPacket(PEmotePacket.class);
         addPacket(PInventoryContentPacket.class);
         addPacket(PInventorySlotPacket.class);
         addPacket(PInventoryTransactionPacket.class);
