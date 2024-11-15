@@ -4,15 +4,14 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.player.PlayerJoinEvent;
+import cn.nukkit.event.player.PlayerLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.event.server.DataPacketReceiveEvent;
 import cn.nukkit.network.Network;
 import cn.nukkit.network.connection.BedrockSession;
 import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec;
-import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec_v3;
-import cn.nukkit.network.connection.netty.initializer.BedrockChannelInitializer;
 import cn.nukkit.network.process.SessionState;
+import cn.nukkit.network.process.handler.InGamePacketHandler;
 import cn.nukkit.network.protocol.LoginPacket;
 import cn.nukkit.network.protocol.ProtocolInfo;
 import cn.nukkit.network.protocol.RequestNetworkSettingsPacket;
@@ -21,7 +20,9 @@ import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 import io.netty.channel.ChannelPipeline;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import xyz.syodo.VersionBypass;
 import xyz.syodo.handlers.PResourcePackHandler;
+import xyz.syodo.processors.PEmoteProcessor;
 import xyz.syodo.utils.PBedrockPacketCodec;
 import xyz.syodo.utils.ProtocolVersion;
 
@@ -35,15 +36,15 @@ import java.util.UUID;
 
 public class ProtocolManager implements Listener {
 
-    private static Object2ObjectOpenHashMap<UUID, ProtocolPlayer> players = new Object2ObjectOpenHashMap<>();
+    private static final Object2ObjectOpenHashMap<UUID, ProtocolPlayer> players = new Object2ObjectOpenHashMap<>();
 
     @EventHandler
     public void onRequestNetworkSettingsPacket(DataPacketReceiveEvent event) {
         if(event.getPacket() instanceof RequestNetworkSettingsPacket packet) {
             int client_protocol = packet.protocolVersion;
             int server_protocol = ProtocolInfo.CURRENT_PROTOCOL;
-            if(Arrays.stream(ProtocolVersion.values()).anyMatch(p -> p.protocol() == client_protocol)) {
-                if(client_protocol < server_protocol) {
+            if (client_protocol < server_protocol) {
+                if(Arrays.stream(ProtocolVersion.getVersions()).anyMatch(p -> p.protocol() == client_protocol)) {
                     packet.protocolVersion = server_protocol;
                 }
             }
@@ -51,7 +52,7 @@ public class ProtocolManager implements Listener {
     }
 
     @EventHandler
-    public void on(DataPacketReceiveEvent event) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException {
+    public void onLoginPacket(DataPacketReceiveEvent event) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException {
         if(event.getPacket() instanceof LoginPacket packet) {
             if(packet.protocol == ProtocolInfo.CURRENT_PROTOCOL) return;
             Field fSessionMap = Network.class.getDeclaredField("sessionMap");
@@ -89,6 +90,11 @@ public class ProtocolManager implements Listener {
                                 config.configure(SessionState.RESOURCE_PACK).onEntry(() -> {
                                     bedrockSession.setPacketHandler(new PResourcePackHandler(bedrockSession, packet.clientUUID));
                                 });
+                                config.configure(SessionState.IN_GAME).onEntry(() -> {
+                                    InGamePacketHandler handler = new InGamePacketHandler(bedrockSession);
+                                    handler.getManager().registerProcessor(new PEmoteProcessor());
+                                    bedrockSession.setPacketHandler(handler);
+                                });
                                 players.put(packet.clientUUID, player);
                             }
                         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -101,11 +107,11 @@ public class ProtocolManager implements Listener {
     }
 
     @EventHandler
-    public void on(PlayerJoinEvent event) {
-        Player p = event.getPlayer();
-        if(players.containsKey(p.getUniqueId())) {
-            ProtocolPlayer protocolPlayer = get(p);
-            p.sendMessage("§4You are running " + ProtocolVersion.get(protocolPlayer.protocol()).version() + ". This is outdated and may cause problems.\n§4Please update your client.");
+    public void on(PlayerLoginEvent event) {
+        Player player = event.getPlayer();
+        if(players.containsKey(player.getUniqueId())) {
+            ProtocolVersion version = get(player).getVersion();
+            VersionBypass.getPlugin().getLogger().info("§e" + player.getName() + " joined with outdated Minecraft §c" + version.version() + " §e(" + version.protocol() + ")");
         }
     }
 
@@ -121,4 +127,5 @@ public class ProtocolManager implements Listener {
     public static ProtocolPlayer get(Player player) {
         return get(player.getUniqueId());
     }
+
 }
