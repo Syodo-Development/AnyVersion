@@ -23,7 +23,6 @@ public class PResourcePackHandler extends BedrockSessionPacketHandler {
         infoPacket.resourcePackEntries = session.getServer().getResourcePackManager().getResourceStack();
         infoPacket.mustAccept = session.getServer().getForceResources();
         session.sendPacket(infoPacket);
-        System.out.println(protocolPlayer.player().getAddress() + " joined with Protocol " + protocolPlayer.protocol());
     }
 
     @Override
