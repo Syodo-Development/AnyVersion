@@ -67,11 +67,6 @@ public class ProtocolManager implements Listener {
                 fMachine.setAccessible(false);
                 if(machine.getState() == SessionState.LOGIN) {
                     ProtocolPlayer player = new ProtocolPlayer(bedrockSession, packet.protocol);
-                    PBedrockPacketCodec codec = new PBedrockPacketCodec(player);
-
-                    ChannelPipeline pipeline = bedrockSession.getPeer().getChannel().pipeline();
-                    pipeline.addBefore(BedrockPacketCodec.NAME, PBedrockPacketCodec.NAME, codec);
-                    pipeline.remove(BedrockPacketCodec.NAME);
                     Field fConfig = StateMachine.class.getDeclaredField("config");
                     fConfig.setAccessible(true);
                     StateMachineConfig<SessionState, SessionState> config = (StateMachineConfig<SessionState, SessionState>) fConfig.get(machine);
@@ -87,6 +82,10 @@ public class ProtocolManager implements Listener {
                             PlayerInfo info = (PlayerInfo) fInfo.get(bedrockSession);
                             fInfo.setAccessible(false);
                             if(info.getUniqueId().equals(packet.clientUUID)) {
+                                PBedrockPacketCodec codec = new PBedrockPacketCodec(player);
+                                ChannelPipeline pipeline = bedrockSession.getPeer().getChannel().pipeline();
+                                pipeline.addBefore(BedrockPacketCodec.NAME, PBedrockPacketCodec.NAME, codec);
+                                pipeline.remove(BedrockPacketCodec.NAME);
                                 config.configure(SessionState.RESOURCE_PACK).onEntry(() -> {
                                     bedrockSession.setPacketHandler(new PResourcePackHandler(bedrockSession, packet.clientUUID));
                                 });
