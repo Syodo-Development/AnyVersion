@@ -22,7 +22,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
 
-
     public static final String NAME = "bedrock-packet-codec-protocolized";
     private static final InternalLogger log = InternalLoggerFactory.getInstance(BedrockPacketCodec.class);
 
