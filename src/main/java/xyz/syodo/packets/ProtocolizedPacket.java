@@ -3,12 +3,18 @@ package xyz.syodo.packets;
 import cn.nukkit.network.protocol.DataPacket;
 import lombok.SneakyThrows;
 import xyz.syodo.manager.ProtocolPlayer;
+import xyz.syodo.utils.ProtocolVersion;
 
 import java.lang.reflect.AccessFlag;
 import java.lang.reflect.Field;
 
 public interface ProtocolizedPacket {
+
     void setPlayer(ProtocolPlayer player);
+
+    default ProtocolVersion getMinProtocolVersion() {
+        return ProtocolVersion.getMin();
+    }
 
     @SneakyThrows
     default void copyPacketContent(DataPacket packet) {

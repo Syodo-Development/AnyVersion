@@ -8,7 +8,8 @@ public enum ProtocolVersion {
 
     MINECRAFT_PE_1_21_20(712, "1.21.20"),
     MINECRAFT_PE_1_21_30(729,"1.21.30"),
-    MINECRAFT_PE_1_21_40(748, "1.21.40");
+    MINECRAFT_PE_1_21_40(748, "1.21.40"),
+    MINECRAFT_PE_1_21_50(766, "1.21.50");
 
     @Getter
     private static final ProtocolVersion[] versions = values();

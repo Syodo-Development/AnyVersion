@@ -21,21 +21,15 @@ public class PacketManager {
     }
 
     public static void init() {
-        addPacket(PCameraInstructionPacket.class);
+        addPacket(PCameraAimAssistPacket.class);
+        addPacket(PCameraAimAssistPresetsPacket.class);
         addPacket(PCameraPresetsPacket.class);
-        addPacket(PChangeDimensionPacket.class);
-        addPacket(PDisconnectPacket.class);
         addPacket(PEmotePacket.class);
         addPacket(PInventoryContentPacket.class);
         addPacket(PInventorySlotPacket.class);
-        addPacket(PInventoryTransactionPacket.class);
-        addPacket(PMobArmorEquipmentPacket.class);
         addPacket(PMobEffectPacket.class);
         addPacket(PPlayerAuthInputPacket.class);
         addPacket(PResourcePacksInfoPacket.class);
-        addPacket(PSetEntityLinkPacket.class);
-        addPacket(PSetTitlePacket.class);
-        addPacket(PStopSoundPacket.class);
         addPacket(PTransferPacket.class);
         addPacket(PUpdateAttributesPacket.class);
     }

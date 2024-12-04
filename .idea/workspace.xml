@@ -5,63 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca96320f-abe1-4cb5-b5fb-eef3db57b2bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/VersionBypass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handlers/PResourcePackHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/manager/PacketManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/manager/ProtocolManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/manager/ProtocolPlayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PCameraInstructionPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PCameraPresetsPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PChangeDimensionPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PDisconnectPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PInventoryContentPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PInventorySlotPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PInventoryTransactionPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PMobArmorEquipmentPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PMobEffectPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PPlayerAuthInputPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PResourcePacksInfoPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PSetEntityLinkPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PSetTitlePacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PStopSoundPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PTransferPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PUpdateAttributesPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/ProtocolizedPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/PBedrockPacketCodec.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/ProtocolVersion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PCameraAimAssistPacket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PCameraAimAssistPresetsPacket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PItemStackResponsePacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/WoolBattle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/commands/ForceMapCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/commands/SetupCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/commands/StartCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/ArenaManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/IngameManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/IngameStatsManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/LobbyManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/MapVoting.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/PerkSelector.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/PlayerManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/RoundVoting.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/ScoreboardListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/TeamSelector.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/Bridger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/DoubleJump.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/EnderPearl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/EscapePod.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/GrandpasWatch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/Grappling.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/Perk.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/WoolBomb.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/listener/perks/WoolFarmer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/Arena.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/Delayed.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/InventorySort.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/Knockback.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/PartyUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/RunnableWithStoppingVar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/Status.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/WoolPlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/manager/PacketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/manager/PacketManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PCameraInstructionPacket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PCameraPresetsPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PCameraPresetsPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PInventorySlotPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PInventorySlotPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PInventoryTransactionPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PInventoryTransactionPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PMobEffectPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PMobEffectPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PPlayerAuthInputPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PPlayerAuthInputPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PResourcePacksInfoPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PResourcePacksInfoPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PTransferPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PTransferPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/ProtocolizedPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/ProtocolizedPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/PBedrockPacketCodec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/PBedrockPacketCodec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/ProtocolVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/ProtocolVersion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

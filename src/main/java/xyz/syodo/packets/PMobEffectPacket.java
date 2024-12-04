@@ -11,9 +11,8 @@ public class PMobEffectPacket extends MobEffectPacket implements ProtocolizedPac
 
     @Override
     public void encode(HandleByteBuf byteBuf) {
-        byteBuf.clear();
         byteBuf.writeEntityRuntimeId(this.eid);
-        byteBuf.writeByte((byte) this.eventId);
+        byteBuf.writeByte((byte)this.eventId);
         byteBuf.writeVarInt(this.effectId);
         byteBuf.writeVarInt(this.amplifier);
         byteBuf.writeBoolean(this.particles);

@@ -40,9 +40,7 @@ public class PInventoryContentPacket extends InventoryContentPacket implements P
             } else {
                 byteBuf.writeUnsignedVarInt(this.dynamicContainerSize);
             }
-        } else if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_20.protocol()) {
-            byteBuf.writeUnsignedVarInt(this.containerNameData == null || this.containerNameData.getDynamicId() == null ? 0 : this.containerNameData.getDynamicId());
-        }
+        } else byteBuf.writeUnsignedVarInt(this.containerNameData == null || this.containerNameData.getDynamicId() == null ? 0 : this.containerNameData.getDynamicId());
     }
 
     @Override

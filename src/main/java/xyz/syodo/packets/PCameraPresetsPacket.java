@@ -23,26 +23,30 @@ public class PCameraPresetsPacket extends CameraPresetsPacket implements Protoco
         byteBuf.writeNotNull(preset.getPos(), (v) -> byteBuf.writeFloatLE(v.getZ()));
         byteBuf.writeNotNull(preset.getPitch(), byteBuf::writeFloatLE);
         byteBuf.writeNotNull(preset.getYaw(), byteBuf::writeFloatLE);
-        if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_20.protocol()) {
-            if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_30.protocol()) {
-                byteBuf.writeNotNull(preset.getRotationSpeed(), byteBuf::writeFloatLE);
-                byteBuf.writeOptional(preset.getSnapToTarget(), byteBuf::writeBoolean);
-                if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_40.protocol()) {
-                    byteBuf.writeNotNull(preset.getHorizontalRotationLimit(), byteBuf::writeVector2f);
-                    byteBuf.writeNotNull(preset.getVerticalRotationLimit(), byteBuf::writeVector2f);
-                    byteBuf.writeOptional(preset.getContinueTargeting(), byteBuf::writeBoolean);
+        if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_30.protocol()) {
+            byteBuf.writeNotNull(preset.getRotationSpeed(), byteBuf::writeFloatLE);
+            byteBuf.writeOptional(preset.getSnapToTarget(), byteBuf::writeBoolean);
+            if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_40.protocol()) {
+                byteBuf.writeNotNull(preset.getHorizontalRotationLimit(), byteBuf::writeVector2f);
+                byteBuf.writeNotNull(preset.getVerticalRotationLimit(), byteBuf::writeVector2f);
+                byteBuf.writeOptional(preset.getContinueTargeting(), byteBuf::writeBoolean);
+                if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_50.protocol()) {
+                    byteBuf.writeOptional(preset.getBlockListeningRadius(), byteBuf::writeFloatLE);
                 }
             }
-            byteBuf.writeNotNull(preset.getViewOffset(), byteBuf::writeVector2f);
-            if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_30.protocol()) {
-                byteBuf.writeNotNull(preset.getEntityOffset(), byteBuf::writeVector3f);
-            }
-            byteBuf.writeNotNull(preset.getRadius(), byteBuf::writeFloatLE);
         }
+        byteBuf.writeNotNull(preset.getViewOffset(), byteBuf::writeVector2f);
+        if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_30.protocol()) {
+            byteBuf.writeNotNull(preset.getEntityOffset(), byteBuf::writeVector3f);
+        }
+        byteBuf.writeNotNull(preset.getRadius(), byteBuf::writeFloatLE);
         byteBuf.writeNotNull(preset.getListener(), (l) -> byteBuf.writeByte((byte) l.ordinal()));
         byteBuf.writeOptional(preset.getPlayEffect(), byteBuf::writeBoolean);
         if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_40.protocol()) {
             byteBuf.writeOptional(preset.getAlignTargetAndCameraForward(), byteBuf::writeBoolean);
+            if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_50.protocol()) {
+                writeCameraPresetAimAssist(byteBuf, preset.getAimAssist());
+            }
         }
     }
 

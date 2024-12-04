@@ -13,7 +13,6 @@ public class PTransferPacket extends TransferPacket implements ProtocolizedPacke
 
     @Override
     public void encode(HandleByteBuf byteBuf) {
-        byteBuf.clear();
         byteBuf.writeString(address);
         byteBuf.writeShortLE(port);
         if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_30.protocol()) {

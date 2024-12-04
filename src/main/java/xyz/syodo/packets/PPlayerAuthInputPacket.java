@@ -47,7 +47,7 @@ public class PPlayerAuthInputPacket extends PlayerAuthInputPacket implements Pro
             }
         }
 
-        this.tick = byteBuf.readUnsignedVarLong();
+        this.tick = new PlayerInputTick(byteBuf.readUnsignedVarLong());
         this.delta = byteBuf.readVector3f();
 
         if (this.inputData.contains(AuthInputAction.PERFORM_ITEM_STACK_REQUEST)) {

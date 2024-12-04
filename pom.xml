@@ -68,12 +68,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.PowerNukkitX</groupId>
-            <artifactId>PowerNukkitX</artifactId>
-            <version>09977ad540</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>xyz.syodo</groupId>
             <artifactId>plugin</artifactId>
             <version>3.0.0-SNAPSHOT</version>
@@ -82,7 +76,7 @@
         <dependency>
             <groupId>com.github.PowerNukkitX</groupId>
             <artifactId>PowerNukkitX</artifactId>
-            <version>c2116a334b</version>
+            <version>master-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

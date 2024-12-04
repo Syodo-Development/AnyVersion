@@ -28,9 +28,7 @@ public class PInventorySlotPacket extends InventorySlotPacket implements Protoco
             } else {
                 this.dynamicContainerSize = byteBuf.readUnsignedVarInt();
             }
-        } else if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_20.protocol()) {
-            this.fullContainerName = new FullContainerName(ContainerSlotType.ANVIL_INPUT, byteBuf.readUnsignedVarInt());
-        }
+        } else this.fullContainerName = new FullContainerName(ContainerSlotType.ANVIL_INPUT, byteBuf.readUnsignedVarInt());
         this.item = byteBuf.readSlot();
     }
 
@@ -44,9 +42,7 @@ public class PInventorySlotPacket extends InventorySlotPacket implements Protoco
             } else {
                 byteBuf.writeUnsignedVarInt(this.dynamicContainerSize);
             }
-        } else if (protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_20.protocol()) {
-            byteBuf.writeUnsignedVarInt(this.fullContainerName == null || this.fullContainerName.getDynamicId() == null ? 0 : this.fullContainerName.getDynamicId());
-        }
+        } else byteBuf.writeUnsignedVarInt(this.fullContainerName == null || this.fullContainerName.getDynamicId() == null ? 0 : this.fullContainerName.getDynamicId());
         byteBuf.writeSlot(this.item);
     }
 

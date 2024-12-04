@@ -15,6 +15,10 @@ public class PResourcePacksInfoPacket extends ResourcePacksInfoPacket implements
         byteBuf.writeBoolean(this.mustAccept);
         byteBuf.writeBoolean(this.hasAddonPacks);
         byteBuf.writeBoolean(this.scripting);
+        if(protocolPlayer.protocol() >= ProtocolVersion.MINECRAFT_PE_1_21_50.protocol()) {
+            byteBuf.writeUUID(this.worldTemplateId);
+            byteBuf.writeString(this.worldTemplateVersion);
+        }
         if(protocolPlayer.protocol() < ProtocolVersion.MINECRAFT_PE_1_21_30.protocol()) {
             byteBuf.writeBoolean(false);
             this.encodePacks(byteBuf, this.resourcePackEntries, true);
