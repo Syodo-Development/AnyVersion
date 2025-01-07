@@ -68,12 +68,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>xyz.syodo</groupId>
-            <artifactId>plugin</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.github.PowerNukkitX</groupId>
             <artifactId>PowerNukkitX</artifactId>
             <version>master-SNAPSHOT</version>
@@ -83,6 +77,12 @@
             <groupId>com.github.AllayMC</groupId>
             <artifactId>fast-reflection</artifactId>
             <version>8733a599fa</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

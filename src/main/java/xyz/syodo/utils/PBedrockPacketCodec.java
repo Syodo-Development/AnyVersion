@@ -5,7 +5,6 @@ import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec;
 import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec_v3;
 import cn.nukkit.network.connection.util.HandleByteBuf;
 import cn.nukkit.network.protocol.DataPacket;
-import cn.nukkit.network.protocol.PlayerAuthInputPacket;
 import cn.nukkit.registry.Registries;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
