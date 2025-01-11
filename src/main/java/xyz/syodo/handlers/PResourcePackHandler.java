@@ -22,6 +22,8 @@ public class PResourcePackHandler extends BedrockSessionPacketHandler {
         infoPacket.setPlayer(protocolPlayer);
         infoPacket.resourcePackEntries = session.getServer().getResourcePackManager().getResourceStack();
         infoPacket.mustAccept = session.getServer().getForceResources();
+        infoPacket.worldTemplateId = UUID.randomUUID();
+        infoPacket.worldTemplateVersion = "";
         session.sendPacket(infoPacket);
     }
 

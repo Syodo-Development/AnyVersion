@@ -31,7 +31,7 @@ public class PResourcePacksInfoPacket extends ResourcePacksInfoPacket implements
     private void encodePacks(HandleByteBuf byteBuf, ResourcePack[] packs, boolean behaviour) {
         byteBuf.writeShortLE(packs.length);
         for (ResourcePack entry : packs) {
-            byteBuf.writeString(entry.getPackId().toString());
+            byteBuf.writeUUID(entry.getPackId());
             byteBuf.writeString(entry.getPackVersion());
             byteBuf.writeLongLE(entry.getPackSize());
             byteBuf.writeString(entry.getEncryptionKey()); // encryption key

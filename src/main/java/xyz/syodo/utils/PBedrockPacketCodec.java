@@ -28,28 +28,34 @@ public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
 
     @Override
     protected final void encode(ChannelHandlerContext ctx, BedrockPacketWrapper msg, List<Object> out) throws Exception {
-        ByteBuf buf = ctx.alloc().buffer(128);
-        try {
-            DataPacket packet = msg.getPacket();
-            msg.setPacketId(packet.pid());
-            encodeHeader(buf, msg);
-            Optional<Class<? extends ProtocolizedPacket>> optionalProtocolizedPacket = PacketManager.get(packet);
-            if(optionalProtocolizedPacket.isPresent()) {
-                ProtocolizedPacket protocolizedPacket = optionalProtocolizedPacket.get().getConstructor().newInstance();
-                if(protocolPlayer.protocol() < protocolizedPacket.getMinProtocolVersion().protocol()) return;
-                if(protocolizedPacket instanceof DataPacket dataPacket) {
-                    protocolizedPacket.setPlayer(protocolPlayer);
-                    protocolizedPacket.copyPacketContent(packet);
-                    packet = dataPacket;
+        if (msg.getPacketBuffer() != null && msg.getPacket() == null) {
+            out.add(msg.retain());
+        } else {
+            ByteBuf buf = ctx.alloc().buffer(128);
+            try {
+                DataPacket packet = msg.getPacket();
+                msg.setPacketId(packet.pid());
+                encodeHeader(buf, msg);
+                Optional<Class<? extends ProtocolizedPacket>> optionalProtocolizedPacket = PacketManager.get(packet);
+                if(optionalProtocolizedPacket.isPresent()) {
+                    ProtocolizedPacket protocolizedPacket = optionalProtocolizedPacket.get().getConstructor().newInstance();
+                    if(protocolPlayer.protocol() < protocolizedPacket.getMinProtocolVersion().protocol()) return;
+                    if(protocolizedPacket instanceof DataPacket dataPacket) {
+                        protocolizedPacket.setPlayer(protocolPlayer);
+                        protocolizedPacket.copyPacketContent(packet);
+                        packet = dataPacket;
+                    }
                 }
+
+                HandleByteBuf byteBuf = HandleByteBuf.of(buf);
+                packet.encode(byteBuf);
+                msg.setPacketBuffer(buf.retain());
+                out.add(msg.retain());
+            } catch (Throwable t) {
+                log.error("Error encoding packet {}", msg.getPacket(), t);
+            } finally {
+                buf.release();
             }
-            HandleByteBuf byteBuf = HandleByteBuf.of(buf);
-            packet.encode(byteBuf);
-            out.add(new BedrockPacketWrapper(msg.getPacketId(), msg.getSenderSubClientId(), msg.getTargetSubClientId(), packet, buf.retain()));
-        } catch (Throwable t) {
-            log.error("Error encoding packet {}", msg.getPacket(), t);
-        } finally {
-            buf.release();
         }
     }
 
