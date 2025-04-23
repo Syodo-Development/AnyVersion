@@ -20,7 +20,7 @@ import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 import io.netty.channel.ChannelPipeline;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import xyz.syodo.VersionBypass;
+import xyz.syodo.AnyVersion;
 import xyz.syodo.handlers.PResourcePackHandler;
 import xyz.syodo.processors.PEmoteProcessor;
 import xyz.syodo.utils.PBedrockPacketCodec;
@@ -46,7 +46,7 @@ public class ProtocolManager implements Listener {
             if (client_protocol < server_protocol) {
                 if(Arrays.stream(ProtocolVersion.getVersions()).anyMatch(p -> p.protocol() == client_protocol)) {
                     packet.protocolVersion = server_protocol;
-                }
+                } else AnyVersion.getPlugin().getLogger().info("Someone tried to join using protocol " + packet.protocolVersion);
             }
         }
     }
@@ -110,7 +110,7 @@ public class ProtocolManager implements Listener {
         Player player = event.getPlayer();
         if(players.containsKey(player.getUniqueId())) {
             ProtocolVersion version = get(player).getVersion();
-            VersionBypass.getPlugin().getLogger().info("§e" + player.getName() + " joined with outdated Minecraft §c" + version.version() + " §e(" + version.protocol() + ")");
+            AnyVersion.getPlugin().getLogger().info("§e" + player.getName() + " joined with outdated Minecraft §c" + version.version() + " §e(" + version.protocol() + ")");
         }
     }
 

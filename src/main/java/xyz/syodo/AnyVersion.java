@@ -3,23 +3,19 @@ package xyz.syodo;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
 import lombok.Getter;
-import xyz.syodo.manager.PacketManager;
 import xyz.syodo.manager.ProtocolManager;
+import xyz.syodo.utils.CloudburstRegistry;
 
-
-public class VersionBypass extends PluginBase {
+public class AnyVersion extends PluginBase {
 
     @Getter
-    private static VersionBypass plugin;
+    private static AnyVersion plugin;
 
     @Override
     public void onLoad() {
         setEnabled();
 
-        VersionBypass.plugin = this;
-
-        PacketManager.init();
-
+        AnyVersion.plugin = this;
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ProtocolManager(), this);
     }

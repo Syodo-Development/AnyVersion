@@ -12,6 +12,11 @@
       <option name="url" value="https://www.jitpack.io" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="PowerNukkitX-releases" />
+      <option name="name" value="PowerNukkitX Repository" />
+      <option name="url" value="https://repo.powernukkitx.org/releases" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="opencollab-repository-maven-snapshots" />
       <option name="name" value="Opencollab Repository snapshots" />
       <option name="url" value="https://repo.opencollab.dev/maven-snapshots" />
