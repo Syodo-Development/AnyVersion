@@ -5,27 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca96320f-abe1-4cb5-b5fb-eef3db57b2bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/PacketHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/handlers/AvailableCommandsHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/handlers/CreativeContentHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/handlers/InventoryTransactionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/handlers/ItemStackRequestHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/handlers/PlayerAuthInputHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/Registries.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/registries/ItemRegistry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/registries/PacketHandlerRegistry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/registries/Registry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/definition/Definition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/definition/ItemDefinition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/ItemTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/Table.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/handlers/LevelChunkHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/handler/handlers/UpdateBlockHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/BlockStateRuntimeDataDeserializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/AnyVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/AnyVersion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/handlers/PResourcePackHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/manager/ProtocolManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/manager/ProtocolManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/packets/PResourcePacksInfoPacket.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/CloudburstRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/CloudburstRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/PBedrockPacketCodec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/PBedrockPacketCodec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/registries/PacketHandlerRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/registries/PacketHandlerRegistry.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
