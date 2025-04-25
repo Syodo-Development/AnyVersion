@@ -1,44 +1,32 @@
 package xyz.syodo.utils;
 
-import cn.nukkit.block.BlockAir;
-import cn.nukkit.block.BlockState;
 import cn.nukkit.network.connection.netty.BedrockPacketWrapper;
-import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec;
 import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec_v3;
 import cn.nukkit.network.connection.util.HandleByteBuf;
-import cn.nukkit.network.protocol.AvailableCommandsPacket;
 import cn.nukkit.network.protocol.DataPacket;
 import cn.nukkit.registry.Registries;
 import cn.nukkit.utils.ByteBufVarInt;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.util.internal.logging.InternalLogger;
-import io.netty.util.internal.logging.InternalLoggerFactory;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.cloudburstmc.nbt.NbtMap;
-import org.cloudburstmc.nbt.util.VarInts;
-import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleBlockDefinition;
-import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket;
-import org.cloudburstmc.protocol.bedrock.packet.InventoryTransactionPacket;
+import lombok.extern.slf4j.Slf4j;
+import org.cloudburstmc.protocol.bedrock.packet.*;
 import xyz.syodo.manager.ProtocolPlayer;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
 
     public static final String NAME = "bedrock-packet-codec-protocolized";
-    private static final InternalLogger log = InternalLoggerFactory.getInstance(BedrockPacketCodec.class);
-
+    @Getter
     private final ProtocolPlayer protocolPlayer;
 
     @Override
-    protected final void encode(ChannelHandlerContext ctx, BedrockPacketWrapper msg, List<Object> out) throws Exception {
-        if(msg.getPacket() instanceof AvailableCommandsPacket) {
-            super.encode(ctx, msg, out);
-            return;
-        }
+    protected final void encode(ChannelHandlerContext ctx, BedrockPacketWrapper msg, List<Object> out) {
         if (msg.getPacketBuffer() != null) {
             // We have a pre-encoded packet buffer, just use that.
             out.add(msg.retain());
@@ -49,9 +37,9 @@ public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
                 msg.setPacketId(packet.pid());
                 packet.encode(HandleByteBuf.of(buf));
                 ProtocolVersion current = ProtocolVersion.getCurrent();
-                BedrockPacket decoded = current.codec().tryDecode(current.helper(), buf, packet.pid());
-                correctPacket(decoded);
                 ProtocolVersion protocol = protocolPlayer.getVersion();
+                BedrockPacket decoded = current.codec().tryDecode(current.helper(), buf, packet.pid());
+                xyz.syodo.registries.Registries.PACKETHANDLER.handlePacket(protocol, decoded);
                 HandleByteBuf protocolizedByteBuf = HandleByteBuf.of(Unpooled.buffer());
                 encodeHeader(protocolizedByteBuf, msg, protocol.codec().getRaknetProtocolVersion());
                 protocol.codec().tryEncode(protocol.helper(), protocolizedByteBuf, decoded);
@@ -66,7 +54,7 @@ public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
     }
 
     @Override
-    protected final void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
+    protected final void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) {
         BedrockPacketWrapper wrapper = new BedrockPacketWrapper();
         wrapper.setPacketBuffer(msg.retainedSlice());
         try {
@@ -79,10 +67,16 @@ public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
                 log.info("Failed to decode packet for packetId {}", wrapper.getPacketId());
                 return;
             }
+            ProtocolVersion current = ProtocolVersion.getCurrent();
+            if(current.codec().getPacketDefinition(packet.pid()) == null) {
+                packet.decode(HandleByteBuf.of(msg));
+                wrapper.setPacket(packet);
+                out.add(wrapper.retain());
+                return;
+            }
             HandleByteBuf protocolizedByteBuf = HandleByteBuf.of(Unpooled.buffer());
             BedrockPacket protocolizedPacket = protocol.codec().tryDecode(protocol.helper(), msg, wrapper.getPacketId());
-            correctPacket(protocolizedPacket);
-            ProtocolVersion current = ProtocolVersion.getCurrent();
+            xyz.syodo.registries.Registries.PACKETHANDLER.handlePacket(current, protocolizedPacket);
             current.codec().tryEncode(current.helper(), protocolizedByteBuf, protocolizedPacket);
             packet.decode(HandleByteBuf.of(protocolizedByteBuf));
             wrapper.setPacket(packet);
@@ -92,15 +86,6 @@ public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
             throw t;
         } finally {
             wrapper.release();
-        }
-    }
-
-    private void correctPacket(BedrockPacket packet) {
-        if(packet instanceof InventoryTransactionPacket transactionPacket) {
-            if(transactionPacket.getBlockDefinition() == null) {
-                BlockState AIR = BlockAir.STATE;
-                transactionPacket.setBlockDefinition(new SimpleBlockDefinition(AIR.getIdentifier(), AIR.blockStateHash(), NbtMap.EMPTY));
-            }
         }
     }
 

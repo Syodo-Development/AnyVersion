@@ -4,7 +4,7 @@ import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
 import lombok.Getter;
 import xyz.syodo.manager.ProtocolManager;
-import xyz.syodo.utils.CloudburstRegistry;
+import xyz.syodo.registries.Registries;
 
 public class AnyVersion extends PluginBase {
 
@@ -14,10 +14,11 @@ public class AnyVersion extends PluginBase {
     @Override
     public void onLoad() {
         setEnabled();
-
         AnyVersion.plugin = this;
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ProtocolManager(), this);
+
+        Registries.init();
     }
 
 }
