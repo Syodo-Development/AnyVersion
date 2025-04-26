@@ -1,8 +1,8 @@
-package xyz.syodo.utils.table;
+package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.BlockStateDefinition;
-import xyz.syodo.utils.definition.ItemDefinition;
+import xyz.syodo.utils.table.Table;
 
 public class BlockStateTable extends Table<BlockStateDefinition> {
 

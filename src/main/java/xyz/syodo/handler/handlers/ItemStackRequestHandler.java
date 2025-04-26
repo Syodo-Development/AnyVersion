@@ -1,18 +1,15 @@
 package xyz.syodo.handler.handlers;
 
-import cn.nukkit.Player;
-import cn.nukkit.inventory.Inventory;
 import lombok.SneakyThrows;
-import org.cloudburstmc.protocol.bedrock.data.inventory.ContainerSlotType;
 import org.cloudburstmc.protocol.bedrock.data.inventory.FullContainerName;
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.ItemStackRequest;
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.ItemStackRequestSlotData;
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.DestroyAction;
+import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.DropAction;
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.ItemStackRequestAction;
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.TransferItemStackRequestAction;
 import org.cloudburstmc.protocol.bedrock.packet.ItemStackRequestPacket;
 import xyz.syodo.handler.PacketHandler;
-import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.utils.ProtocolVersion;
 
 import java.lang.reflect.Field;
@@ -40,6 +37,14 @@ public class ItemStackRequestHandler extends PacketHandler<ItemStackRequestPacke
                     }
                 } else if(action instanceof DestroyAction destroyAction) {
                    ItemStackRequestSlotData source = destroyAction.getSource();
+                    if(source.getContainerName() == null) {
+                        Field field = source.getClass().getDeclaredField("containerName");
+                        field.setAccessible(true);
+                        field.set(source, new FullContainerName(source.getContainer(), 0));
+                        field.setAccessible(false);
+                    }
+                } else if(action instanceof DropAction dropAction) {
+                    ItemStackRequestSlotData source = dropAction.getSource();
                     if(source.getContainerName() == null) {
                         Field field = source.getClass().getDeclaredField("containerName");
                         field.setAccessible(true);
