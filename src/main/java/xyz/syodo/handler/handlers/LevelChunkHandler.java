@@ -1,8 +1,6 @@
 package xyz.syodo.handler.handlers;
 
-import cn.nukkit.block.BlockAir;
-import cn.nukkit.block.BlockState;
-import cn.nukkit.block.BlockUnknown;
+import cn.nukkit.block.*;
 import cn.nukkit.level.format.palette.BlockPalette;
 import cn.nukkit.level.format.palette.Palette;
 import cn.nukkit.network.connection.util.HandleByteBuf;
@@ -14,8 +12,7 @@ import xyz.syodo.handler.PacketHandler;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.BlockStateRuntimeDataDeserializer;
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.definition.ItemDefinition;
-
+import xyz.syodo.utils.definition.BlockStateDefinition;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +40,9 @@ public class LevelChunkHandler extends PacketHandler<LevelChunkPacket> {
                 List<BlockState> overwritten = new ArrayList<>();
                 for(BlockState state : paletteList) {
                     if(state != BlockAir.STATE) {
-                        if(Registries.ITEM.getProtocolVersion(ItemDefinition.of(state.getIdentifier())).protocol() > version.protocol()) {
-                            overwritten.add(BlockUnknown.PROPERTIES.getDefaultState());
+                        BlockStateDefinition definition = BlockStateDefinition.of(state);
+                        if(Registries.BLOCKSTATE.getProtocolVersion(definition).protocol() > version.protocol()) {
+                            overwritten.add(Registries.BLOCKSTATE.downgrade(version, definition).getDowngrade().transform(state));
                             continue;
                         }
                     }
