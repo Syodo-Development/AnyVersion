@@ -12,10 +12,6 @@ public interface ProtocolizedPacket {
 
     void setPlayer(ProtocolPlayer player);
 
-    default ProtocolVersion getMinProtocolVersion() {
-        return ProtocolVersion.getMin();
-    }
-
     @SneakyThrows
     default void copyPacketContent(DataPacket packet) {
         for(Field field : packet.getClass().getDeclaredFields()) {

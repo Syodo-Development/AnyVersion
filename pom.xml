@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>xyz.syodo</groupId>
-    <artifactId>VersionBypass</artifactId>
-    <version>1.0.0</version>
+    <artifactId>AnyVersion</artifactId>
+    <version>2.0.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,6 +16,11 @@
     </properties>
 
     <repositories>
+        <repository>
+            <id>PowerNukkitX-releases</id>
+            <name>PowerNukkitX Repository</name>
+            <url>https://repo.powernukkitx.org/releases</url>
+        </repository>
         <repository>
             <id>central</id>
             <url>https://repo.maven.apache.org/maven2/</url>
@@ -63,20 +68,30 @@
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <!-- put your configurations here -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.PowerNukkitX</groupId>
-            <artifactId>PowerNukkitX</artifactId>
-            <version>master-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.AllayMC</groupId>
-            <artifactId>fast-reflection</artifactId>
-            <version>8733a599fa</version>
+            <groupId>org.powernukkitx</groupId>
+            <artifactId>server</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -84,6 +99,18 @@
             <artifactId>lombok</artifactId>
             <version>1.18.34</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.cloudburstmc.protocol</groupId>
+            <artifactId>bedrock-codec</artifactId>
+            <version>3.0.0.Beta6-20250415.154650-7</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.cloudburstmc.math</groupId>
+            <artifactId>immutable</artifactId>
+            <version>2.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
