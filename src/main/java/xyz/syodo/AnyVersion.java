@@ -18,8 +18,10 @@ public class AnyVersion extends PluginBase {
 
     @Override
     public void onLoad() {
-        if(Arrays.stream(ProtocolVersion.getVersions()).anyMatch(p -> p.protocol() == ProtocolInfo.CURRENT_PROTOCOL)) {
-            throw new UnsupportedOperationException("The current protocol is not supported by AnyVersion! Please update the plugin.");
+        try {
+            ProtocolVersion.getCurrent(); //Fails when version not found!
+        } catch (Exception e) {
+            new UnsupportedOperationException("The current protocol is not supported by AnyVersion! Please update the plugin.");
         }
         setEnabled();
         AnyVersion.plugin = this;

@@ -152,10 +152,6 @@ public enum ProtocolVersion {
         return versions[0];
     }
 
-    public static ProtocolVersion getMax() {
-        return versions[versions.length-1];
-    }
-
     public static ProtocolVersion get(int protocol) {
         return Arrays.stream(versions).filter(p -> p.protocol() == protocol).findAny().get();
     }
