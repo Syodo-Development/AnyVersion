@@ -1,4 +1,4 @@
-package xyz.syodo.utils.transformer._1_21_0;
+package xyz.syodo.utils.transformer._1_21_20;
 
 import cn.nukkit.block.BlockProperties;
 import cn.nukkit.block.BlockState;
@@ -8,7 +8,7 @@ import xyz.syodo.utils.transformer.BlockStateTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 
-public class DirtStateTransformer extends BlockStateTransformer {
+public class DirtTransformer extends BlockStateTransformer {
 
     @Override
     public BlockState transform(BlockState original) {

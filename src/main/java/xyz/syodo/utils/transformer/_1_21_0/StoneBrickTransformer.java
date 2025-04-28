@@ -3,7 +3,6 @@ package xyz.syodo.utils.transformer._1_21_0;
 import cn.nukkit.block.BlockProperties;
 import cn.nukkit.block.BlockState;
 import cn.nukkit.block.property.CommonBlockProperties;
-import cn.nukkit.block.property.enums.MonsterEggStoneType;
 import cn.nukkit.block.property.enums.StoneBrickType;
 import xyz.syodo.utils.transformer.BlockStateTransformer;
 

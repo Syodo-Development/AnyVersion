@@ -1,7 +1,6 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer.IdentifierTransformer;
 import xyz.syodo.utils.transformer._1_21_0.*;
 
 import static cn.nukkit.block.BlockID.*;
@@ -11,7 +10,6 @@ public class BlockStateTable_1_21_0 extends BlockStateTable {
 
     public BlockStateTable_1_21_0() {
         super(ProtocolVersion.MINECRAFT_PE_1_21_20,
-                of(DANDELION, new IdentifierTransformer("minecraft:yellow_flower")),
                 of(PRISMARINE_SLAB, new StoneBlockSlab2Transformer()),
                 of(DARK_PRISMARINE_SLAB, new StoneBlockSlab2Transformer()),
                 of(SMOOTH_SANDSTONE_SLAB, new StoneBlockSlab2Transformer()),
