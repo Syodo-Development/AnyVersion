@@ -20,6 +20,8 @@ public class PacketHandlerRegistry extends Registry {
         HANDLERS.add(new UpdateBlockHandler());
         HANDLERS.add(new LevelChunkHandler());
         HANDLERS.add(new LevelEventHandler());
+        HANDLERS.add(new StartGameHandler());
+        HANDLERS.add(new ItemRegistryHandler());
     }
 
     public void handlePacket(ProtocolVersion version, BedrockPacket packet) {
