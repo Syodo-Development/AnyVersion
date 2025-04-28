@@ -4,10 +4,9 @@ import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.BlockStateDefinition;
+import xyz.syodo.utils.table.blockstate.BlockStateTable_1_21_0;
 import xyz.syodo.utils.table.blockstate.BlockStateTable_1_21_20;
-import xyz.syodo.utils.transformer._1_21_20.DirtStateTransformer;
 import xyz.syodo.utils.table.blockstate.BlockStateTable;
-import xyz.syodo.utils.transformer._1_21_20.StoneBlockSlab2Transformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;
@@ -89,6 +88,7 @@ public class BlockStateRegistry extends Registry {
                 of(STRUCTURE_VOID)
         ));
         TABLES.add(new BlockStateTable_1_21_20());
+        TABLES.add(new BlockStateTable_1_21_0());
     }
 
     public ProtocolVersion getProtocolVersion(BlockStateDefinition definition) {

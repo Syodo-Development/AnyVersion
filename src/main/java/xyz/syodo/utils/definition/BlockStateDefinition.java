@@ -13,23 +13,19 @@ import xyz.syodo.utils.transformer.UnknownStateTransformer;
 @RequiredArgsConstructor
 public class BlockStateDefinition extends Definition {
 
-    private final int blockStateHash;
+    private final String identifier;
     private BlockStateTransformer downgrade = new UnknownStateTransformer();
 
-    public static BlockStateDefinition of(Integer blockStateHash) {
-        return new BlockStateDefinition(blockStateHash);
+    public static BlockStateDefinition of(String identifier) {
+        return new BlockStateDefinition(identifier);
     }
 
     public static BlockStateDefinition of(BlockState state) {
-        return new BlockStateDefinition(state.blockStateHash());
-    }
-
-    public static BlockStateDefinition of(String id) {
-        return new BlockStateDefinition(Registries.BLOCK.get(id).getBlockState().blockStateHash());
+        return new BlockStateDefinition(state.getIdentifier());
     }
 
     public static BlockStateDefinition of(String id, BlockStateTransformer transformer) {
-        return new BlockStateDefinition(Registries.BLOCK.get(id).getBlockState().blockStateHash(), transformer);
+        return new BlockStateDefinition(Registries.BLOCK.get(id).getBlockState().getIdentifier(), transformer);
     }
 
     public int getDowngradeHash(BlockState origen) {
@@ -39,7 +35,7 @@ public class BlockStateDefinition extends Definition {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof BlockStateDefinition definition) {
-            return definition.blockStateHash == blockStateHash;
+            return definition.identifier.equals(identifier);
         }
         return false;
     }

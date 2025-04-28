@@ -19,6 +19,7 @@ public class PacketHandlerRegistry extends Registry {
         HANDLERS.add(new ItemStackRequestHandler());
         HANDLERS.add(new UpdateBlockHandler());
         HANDLERS.add(new LevelChunkHandler());
+        HANDLERS.add(new LevelEventHandler());
     }
 
     public void handlePacket(ProtocolVersion version, BedrockPacket packet) {
