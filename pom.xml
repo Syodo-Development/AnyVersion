@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>xyz.syodo</groupId>
-    <artifactId>VersionBypass</artifactId>
-    <version>1.0.0</version>
+    <artifactId>AnyVersion</artifactId>
+    <version>2.0.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -92,12 +92,6 @@
             <groupId>org.powernukkitx</groupId>
             <artifactId>server</artifactId>
             <version>2.0.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.AllayMC</groupId>
-            <artifactId>fast-reflection</artifactId>
-            <version>8733a599fa</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

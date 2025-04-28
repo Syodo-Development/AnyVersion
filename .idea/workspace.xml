@@ -5,28 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca96320f-abe1-4cb5-b5fb-eef3db57b2bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/BlockStateTable_1_21_30.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/BlockStateTable_1_21_40.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/BlockStateTable_1_21_50.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/BlockStateTable_1_21_60.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/BlockStateTable_1_21_70.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/TemporaryBlockStateTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_30/CobblestoneWallTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_30/ColoredTorchBpTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_30/ColoredTorchRgTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_30/PurpurTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_30/SpongeTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_30/StructureVoidTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_30/TNTTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_40/SkullTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_60/CreakingHeartTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_60/DoorTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/transformer/_1_21_60/FenceGateTransformer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/AnyVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/AnyVersion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/registries/BlockStateRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/registries/registries/BlockStateRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/ProtocolVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/ProtocolVersion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/BlockStateTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/syodo/utils/table/blockstate/BlockStateTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +46,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.AnyVersion [package].executor": "Run",
     "Maven.Skywars [compile].executor": "Run",
     "Maven.Skywars [package].executor": "Run",
     "Maven.VersionBypass [clean].executor": "Run",
