@@ -10,6 +10,7 @@ import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.TransferItemStackRequestAction;
 import org.cloudburstmc.protocol.bedrock.packet.ItemStackRequestPacket;
 import xyz.syodo.handler.PacketHandler;
+import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.utils.ProtocolVersion;
 
 import java.lang.reflect.Field;
@@ -17,7 +18,7 @@ import java.lang.reflect.Field;
 public class ItemStackRequestHandler extends PacketHandler<ItemStackRequestPacket> {
     @SneakyThrows
     @Override
-    public void handle(ProtocolVersion version, ItemStackRequestPacket packet) {
+    public void handle(ProtocolPlayer player, ItemStackRequestPacket packet) {
         for(ItemStackRequest request : packet.getRequests()) {
             for(ItemStackRequestAction action : request.getActions()) {
                 if(action instanceof TransferItemStackRequestAction requestAction) {

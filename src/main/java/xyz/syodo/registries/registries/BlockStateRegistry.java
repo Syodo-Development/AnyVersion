@@ -2,8 +2,11 @@ package xyz.syodo.registries.registries;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.BlockStateDefinition;
+import xyz.syodo.utils.definition.ItemDefinition;
+import xyz.syodo.utils.table.ItemTable;
 import xyz.syodo.utils.table.blockstate.*;
 
 public class BlockStateRegistry extends Registry {
@@ -19,6 +22,21 @@ public class BlockStateRegistry extends Registry {
         TABLES.add(new BlockStateTable_1_21_30());
         TABLES.add(new BlockStateTable_1_21_20());
         TABLES.add(new BlockStateTable_1_21_0());
+        TABLES.add(new BlockStateTable_1_20_80());
+
+        for(BlockStateTable table : TABLES) {
+            ItemTable itemTable;
+            var opt = Registries.ITEM.getTables().stream().filter(itemTable1 -> itemTable1.getVersion().protocol() == table.getVersion().protocol()).findFirst();
+            if(opt.isPresent()) {
+                itemTable = opt.get();
+            } else {
+                itemTable = new ItemTable(table.getVersion());
+                Registries.ITEM.getTables().add(itemTable);
+            }
+            for(BlockStateDefinition definition : table.getContent()) {
+                itemTable.addAll(ItemDefinition.of(definition.getIdentifier()));
+            }
+        }
     }
 
     public ProtocolVersion getProtocolVersion(BlockStateDefinition definition) {

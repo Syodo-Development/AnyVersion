@@ -9,6 +9,7 @@ import io.netty.buffer.Unpooled;
 import lombok.SneakyThrows;
 import org.cloudburstmc.protocol.bedrock.packet.LevelChunkPacket;
 import xyz.syodo.handler.PacketHandler;
+import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.BlockStateRuntimeDataDeserializer;
 import xyz.syodo.utils.ProtocolVersion;
@@ -21,7 +22,7 @@ public class LevelChunkHandler extends PacketHandler<LevelChunkPacket> {
 
     @SneakyThrows
     @Override
-    public void handle(ProtocolVersion version, LevelChunkPacket packet) {
+    public void handle(ProtocolPlayer player, LevelChunkPacket packet) {
         ByteBuf data = packet.getData().copy();
         int total = packet.getSubChunksLength();
         HandleByteBuf modified = HandleByteBuf.of(Unpooled.buffer());
@@ -41,8 +42,8 @@ public class LevelChunkHandler extends PacketHandler<LevelChunkPacket> {
                 for(BlockState state : paletteList) {
                     if(state != BlockAir.STATE) {
                         BlockStateDefinition definition = BlockStateDefinition.of(state);
-                        if(Registries.BLOCKSTATE.getProtocolVersion(definition).protocol() > version.protocol()) {
-                            overwritten.add(Registries.BLOCKSTATE.downgrade(version, definition).getDowngrade().transform(state));
+                        if(Registries.BLOCKSTATE.getProtocolVersion(definition).protocol() > player.protocol()) {
+                            overwritten.add(Registries.BLOCKSTATE.downgrade(player.getVersion(), definition).getDowngrade().transform(state));
                             continue;
                         }
                     }

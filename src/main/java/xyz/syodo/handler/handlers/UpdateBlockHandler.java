@@ -6,6 +6,7 @@ import org.cloudburstmc.protocol.bedrock.data.definitions.BlockDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleBlockDefinition;
 import org.cloudburstmc.protocol.bedrock.packet.UpdateBlockPacket;
 import xyz.syodo.handler.PacketHandler;
+import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.BlockStateDefinition;
@@ -14,11 +15,11 @@ import xyz.syodo.utils.definition.BlockStateDefinition;
 public class UpdateBlockHandler extends PacketHandler<UpdateBlockPacket> {
 
     @Override
-    public void handle(ProtocolVersion version, UpdateBlockPacket packet) {
+    public void handle(ProtocolPlayer player, UpdateBlockPacket packet) {
         if(packet.getDefinition() instanceof SimpleBlockDefinition definition) {
             BlockStateDefinition blockStateDefinition = BlockStateDefinition.of(definition.getIdentifier());
-            if(Registries.BLOCKSTATE.getProtocolVersion(blockStateDefinition).protocol() > version.protocol()) {
-                BlockStateImpl downgraded = (BlockStateImpl) Registries.BLOCKSTATE.downgrade(version, blockStateDefinition).getDowngrade().transform(cn.nukkit.registry.Registries.BLOCKSTATE.get(definition.getRuntimeId()));
+            if(Registries.BLOCKSTATE.getProtocolVersion(blockStateDefinition).protocol() > player.protocol()) {
+                BlockStateImpl downgraded = (BlockStateImpl) Registries.BLOCKSTATE.downgrade(player.getVersion(), blockStateDefinition).getDowngrade().transform(cn.nukkit.registry.Registries.BLOCKSTATE.get(definition.getRuntimeId()));
                 BlockDefinition blockDefinition = new SimpleBlockDefinition(downgraded.getIdentifier(), downgraded.blockStateHash(), definition.getState());
                 packet.setDefinition(blockDefinition);
             }

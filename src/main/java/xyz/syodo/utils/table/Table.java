@@ -15,6 +15,10 @@ public class Table<E extends Definition> {
 
     protected Table(ProtocolVersion version, E... values) {
         this.version = version;
+        this.addAll(values);
+    }
+
+    public void addAll(E... values) {
         content.addAll(Arrays.asList(values));
     }
 }

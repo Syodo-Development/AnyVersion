@@ -4,12 +4,13 @@ import org.cloudburstmc.math.vector.Vector2f;
 import org.cloudburstmc.math.vector.Vector3f;
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket;
 import xyz.syodo.handler.PacketHandler;
+import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.utils.ProtocolVersion;
 
 public class PlayerAuthInputHandler extends PacketHandler<PlayerAuthInputPacket> {
 
     @Override
-    public void handle(ProtocolVersion version, PlayerAuthInputPacket packet) {
+    public void handle(ProtocolPlayer player, PlayerAuthInputPacket packet) {
         if(packet.getInteractRotation() == null) {
             packet.setInteractRotation(Vector2f.ZERO);
         }

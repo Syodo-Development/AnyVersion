@@ -8,12 +8,11 @@ import org.cloudburstmc.protocol.bedrock.data.inventory.transaction.ItemUseTrans
 import org.cloudburstmc.protocol.bedrock.packet.InventoryTransactionPacket;
 import xyz.syodo.handler.PacketHandler;
 import xyz.syodo.manager.ProtocolPlayer;
-import xyz.syodo.utils.ProtocolVersion;
 
 public class InventoryTransactionHandler extends PacketHandler<InventoryTransactionPacket> {
 
     @Override
-    public void handle(ProtocolVersion version, InventoryTransactionPacket packet) {
+    public void handle(ProtocolPlayer player, InventoryTransactionPacket packet) {
         if(packet.getBlockDefinition() == null) {
             BlockState AIR = BlockAir.STATE;
             packet.setBlockDefinition(new SimpleBlockDefinition(AIR.getIdentifier(), AIR.blockStateHash(), NbtMap.EMPTY));

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.cloudburstmc.protocol.bedrock.packet.*;
 import xyz.syodo.manager.ProtocolPlayer;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -28,28 +29,30 @@ public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
     @Override
     protected final void encode(ChannelHandlerContext ctx, BedrockPacketWrapper msg, List<Object> out) {
         if (msg.getPacketBuffer() != null) {
-            // We have a pre-encoded packet buffer, just use that.
+            ByteBuf message = msg.getPacketBuffer();
+            decodeHeader(message, msg);
+            DataPacket packet = Registries.PACKET.get(msg.getPacketId());
+            packet.decode(HandleByteBuf.of(message));
+            msg.setPacket(packet);
+        }
+        ByteBuf buf = ctx.alloc().buffer(128);
+        try {
+            DataPacket packet = msg.getPacket();
+            msg.setPacketId(packet.pid());
+            packet.encode(HandleByteBuf.of(buf));
+            ProtocolVersion current = ProtocolVersion.getCurrent();
+            ProtocolVersion protocol = protocolPlayer.getVersion();
+            BedrockPacket decoded = current.codec().tryDecode(current.helper(), buf, packet.pid());
+            HandleByteBuf protocolizedByteBuf = HandleByteBuf.of(ctx.alloc().buffer(128));
+            encodeHeader(protocolizedByteBuf, msg, protocol.codec().getRaknetProtocolVersion());
+            xyz.syodo.registries.Registries.PACKETHANDLER.handlePacket(protocolPlayer, decoded);
+            protocol.codec().tryEncode(protocol.helper(), protocolizedByteBuf, decoded);
+            msg.setPacketBuffer(protocolizedByteBuf.retain());
             out.add(msg.retain());
-        } else {
-            ByteBuf buf = Unpooled.buffer();
-            try {
-                DataPacket packet = msg.getPacket();
-                msg.setPacketId(packet.pid());
-                packet.encode(HandleByteBuf.of(buf));
-                ProtocolVersion current = ProtocolVersion.getCurrent();
-                ProtocolVersion protocol = protocolPlayer.getVersion();
-                BedrockPacket decoded = current.codec().tryDecode(current.helper(), buf, packet.pid());
-                xyz.syodo.registries.Registries.PACKETHANDLER.handlePacket(protocol, decoded);
-                HandleByteBuf protocolizedByteBuf = HandleByteBuf.of(Unpooled.buffer());
-                encodeHeader(protocolizedByteBuf, msg, protocol.codec().getRaknetProtocolVersion());
-                protocol.codec().tryEncode(protocol.helper(), protocolizedByteBuf, decoded);
-                msg.setPacketBuffer(protocolizedByteBuf.retain());
-                out.add(msg.retain());
-            } catch (Throwable t) {
-                log.error("Error encoding packet {}", msg.getPacket(), t);
-            } finally {
-                buf.release();
-            }
+        } catch (Throwable t) {
+            log.error("Error encoding packet {}", msg.getPacket(), t);
+        } finally {
+            buf.release();
         }
     }
 
@@ -76,7 +79,7 @@ public class PBedrockPacketCodec extends BedrockPacketCodec_v3 {
             }
             HandleByteBuf protocolizedByteBuf = HandleByteBuf.of(Unpooled.buffer());
             BedrockPacket protocolizedPacket = protocol.codec().tryDecode(protocol.helper(), msg, wrapper.getPacketId());
-            xyz.syodo.registries.Registries.PACKETHANDLER.handlePacket(current, protocolizedPacket);
+            xyz.syodo.registries.Registries.PACKETHANDLER.handlePacket(protocolPlayer, protocolizedPacket);
             current.codec().tryEncode(current.helper(), protocolizedByteBuf, protocolizedPacket);
             packet.decode(HandleByteBuf.of(protocolizedByteBuf));
             wrapper.setPacket(packet);

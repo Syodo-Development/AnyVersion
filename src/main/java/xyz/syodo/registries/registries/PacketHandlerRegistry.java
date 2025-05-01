@@ -4,7 +4,10 @@ import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket;
 import xyz.syodo.handler.PacketHandler;
 import xyz.syodo.handler.handlers.*;
+import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.utils.ProtocolVersion;
+
+import java.util.stream.Stream;
 
 public class PacketHandlerRegistry extends Registry {
 
@@ -22,9 +25,14 @@ public class PacketHandlerRegistry extends Registry {
         HANDLERS.add(new LevelEventHandler());
         HANDLERS.add(new StartGameHandler());
         HANDLERS.add(new ItemRegistryHandler());
+        HANDLERS.add(new ContainerCloseHandler());
     }
 
-    public void handlePacket(ProtocolVersion version, BedrockPacket packet) {
-        HANDLERS.stream().filter(f -> f.getType() == packet.getClass()).forEach(packetHandler -> packetHandler.handle(version, packet));
+    public boolean handlePacket(ProtocolPlayer player, BedrockPacket packet) {
+        return HANDLERS.stream()
+                .filter(handler -> handler.getType() == packet.getClass())
+                .peek(handler -> handler.handle(player, packet))
+                .findAny()
+                .isPresent();
     }
 }

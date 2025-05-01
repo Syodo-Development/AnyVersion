@@ -4,7 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.player.PlayerLoginEvent;
+import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.event.server.DataPacketReceiveEvent;
 import cn.nukkit.event.server.DataPacketSendEvent;
@@ -19,9 +19,7 @@ import cn.nukkit.network.protocol.*;
 import cn.nukkit.network.protocol.types.PlayerInfo;
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelPipeline;
+import io.netty.channel.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import xyz.syodo.AnyVersion;
@@ -94,6 +92,7 @@ public class ProtocolManager implements Listener {
         }
     }
 
+
     @EventHandler
     public void onLoginPacket(DataPacketReceiveEvent event) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException {
         if(event.getPacket() instanceof LoginPacket packet) {
@@ -165,7 +164,7 @@ public class ProtocolManager implements Listener {
     }
 
     @EventHandler
-    public void on(PlayerLoginEvent event) {
+    public void on(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if(players.containsKey(player.getUniqueId())) {
             ProtocolVersion version = get(player).getVersion();

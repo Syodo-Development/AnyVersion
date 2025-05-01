@@ -7,11 +7,10 @@ import org.cloudburstmc.protocol.bedrock.data.command.CommandParamData;
 import org.cloudburstmc.protocol.bedrock.packet.AvailableCommandsPacket;
 import xyz.syodo.handler.PacketHandler;
 import xyz.syodo.manager.ProtocolPlayer;
-import xyz.syodo.utils.ProtocolVersion;
 
 public class AvailableCommandsHandler extends PacketHandler<AvailableCommandsPacket> {
     @Override
-    public void handle(ProtocolVersion version, AvailableCommandsPacket packet) {
+    public void handle(ProtocolPlayer player, AvailableCommandsPacket packet) {
         for(CommandData command : packet.getCommands()) {
             for(CommandOverloadData overload : command.getOverloads()) {
                 for(CommandParamData param : overload.getOverloads()) {

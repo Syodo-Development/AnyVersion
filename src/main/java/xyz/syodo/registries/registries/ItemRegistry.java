@@ -15,6 +15,9 @@ public class ItemRegistry extends Registry {
 
     private final ObjectArraySet<ItemTable> TABLES = new ObjectArraySet<>();
 
+    public ObjectArraySet<ItemTable> getTables() {
+        return TABLES;
+    }
 
     @Override
     public void init() {
@@ -143,6 +146,32 @@ public class ItemRegistry extends Registry {
                 of(DAMAGED_ANVIL),
                 of(CHIPPED_ANVIL),
                 of(DANDELION)
+        ));
+        TABLES.add(new ItemTable(ProtocolVersion.MINECRAFT_PE_1_21_0,
+                of(BOLT_ARMOR_TRIM_SMITHING_TEMPLATE),
+                of(BREEZE_ROD),
+                of(CORAL_BLOCK),
+                of(CORAL_FAN),
+                of(DOUBLE_PLANT),
+                of(FLOW_ARMOR_TRIM_SMITHING_TEMPLATE),
+                of(FLOW_POTTERY_SHERD),
+                of(GUSTER_BANNER_PATTERN),
+                of(GUSTER_POTTERY_SHERD),
+                of(MACE),
+                of(MUSIC_DISC_CREATOR),
+                of(MUSIC_DISC_CREATOR_MUSIC_BOX),
+                of(MUSIC_DISC_PRECIPICE),
+                of(OMINOUS_BOTTLE),
+                of(OMINOUS_TRIAL_KEY),
+                of(RED_FLOWER),
+                of(SAPLING),
+                of(SCRAPE_POTTERY_SHERD),
+                of(STONE_BLOCK_SLAB),
+                of(TALLGRASS),
+                of(BREEZE_SPAWN_EGG),
+                of(BOGGED_SPAWN_EGG),
+                of(WIND_CHARGE),
+                of(LINGERING_POTION)
         ));
     }
 
