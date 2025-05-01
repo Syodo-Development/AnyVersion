@@ -28,6 +28,7 @@ public class PacketHandlerRegistry extends Registry {
         HANDLERS.add(new ContainerCloseHandler());
         HANDLERS.add(new ModalFormRequestHandler());
         HANDLERS.add(new ModalFormResponseHandler());
+        HANDLERS.add(new ServerSettingsResponseHandler());
     }
 
     public boolean handlePacket(ProtocolPlayer player, BedrockPacket packet) {
