@@ -10,6 +10,14 @@ public class BlockStateTable_1_21_0 extends BlockStateTable {
 
     public BlockStateTable_1_21_0() {
         super(ProtocolVersion.MINECRAFT_PE_1_21_0,
+                of(SMOOTH_STONE_SLAB, new StoneBlockSlabTransformer()),
+                of(SANDSTONE_SLAB, new StoneBlockSlabTransformer()),
+                of(PETRIFIED_OAK_SLAB, new StoneBlockSlabTransformer()),
+                of(COBBLESTONE_SLAB, new StoneBlockSlabTransformer()),
+                of(BRICK_SLAB, new StoneBlockSlabTransformer()),
+                of(STONE_BRICK_SLAB, new StoneBlockSlabTransformer()),
+                of(QUARTZ_SLAB, new StoneBlockSlabTransformer()),
+                of(NETHER_BRICK_SLAB, new StoneBlockSlabTransformer()),
                 of(PRISMARINE_SLAB, new StoneBlockSlab2Transformer()),
                 of(DARK_PRISMARINE_SLAB, new StoneBlockSlab2Transformer()),
                 of(SMOOTH_SANDSTONE_SLAB, new StoneBlockSlab2Transformer()),

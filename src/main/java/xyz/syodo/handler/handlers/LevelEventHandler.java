@@ -18,11 +18,8 @@ public class LevelEventHandler extends PacketHandler<LevelEventPacket> {
     public void handle(ProtocolPlayer player, LevelEventPacket packet) {
         if(packet.getType() == LevelEvent.PARTICLE_DESTROY_BLOCK) {
             BlockState origen = cn.nukkit.registry.Registries.BLOCKSTATE.get(packet.getData());
-            BlockStateDefinition blockStateDefinition = BlockStateDefinition.of(origen.getIdentifier());
-            if(Registries.BLOCKSTATE.getProtocolVersion(blockStateDefinition).protocol() > player.protocol()) {
-                BlockStateImpl downgraded = (BlockStateImpl) Registries.BLOCKSTATE.downgrade(player.getVersion(), blockStateDefinition).getDowngrade().transform(origen);
-                packet.setData(downgraded.blockStateHash());
-            }
+            BlockStateImpl downgraded = (BlockStateImpl) Registries.BLOCKSTATE.downgrade(player.getVersion(), origen);
+            packet.setData(downgraded.blockStateHash());
         }
     }
 

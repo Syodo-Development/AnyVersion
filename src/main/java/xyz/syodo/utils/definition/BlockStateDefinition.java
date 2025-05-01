@@ -25,7 +25,7 @@ public class BlockStateDefinition extends Definition {
     }
 
     public static BlockStateDefinition of(String id, BlockStateTransformer transformer) {
-        return new BlockStateDefinition(Registries.BLOCK.get(id).getBlockState().getIdentifier(), transformer);
+        return new BlockStateDefinition(id, transformer);
     }
 
     public int getDowngradeHash(BlockState origen) {

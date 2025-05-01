@@ -41,11 +41,8 @@ public class LevelChunkHandler extends PacketHandler<LevelChunkPacket> {
                 List<BlockState> overwritten = new ArrayList<>();
                 for(BlockState state : paletteList) {
                     if(state != BlockAir.STATE) {
-                        BlockStateDefinition definition = BlockStateDefinition.of(state);
-                        if(Registries.BLOCKSTATE.getProtocolVersion(definition).protocol() > player.protocol()) {
-                            overwritten.add(Registries.BLOCKSTATE.downgrade(player.getVersion(), definition).getDowngrade().transform(state));
-                            continue;
-                        }
+                        overwritten.add(Registries.BLOCKSTATE.downgrade(player.getVersion(), state));
+                        continue;
                     }
                     overwritten.add(state);
                 }

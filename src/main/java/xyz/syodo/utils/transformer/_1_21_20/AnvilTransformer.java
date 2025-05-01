@@ -4,8 +4,6 @@ import cn.nukkit.block.BlockProperties;
 import cn.nukkit.block.BlockState;
 import cn.nukkit.block.property.CommonBlockProperties;
 import cn.nukkit.block.property.enums.Damage;
-import cn.nukkit.block.property.enums.SandStoneType;
-import cn.nukkit.block.property.type.EnumPropertyType;
 import xyz.syodo.utils.transformer.BlockStateTransformer;
 
 import static cn.nukkit.block.BlockID.*;
@@ -21,7 +19,9 @@ public class AnvilTransformer extends BlockStateTransformer {
             case DAMAGED_ANVIL -> Damage.BROKEN;
             default -> Damage.UNDAMAGED;
         };
-        return PROPERTIES.getBlockState(CommonBlockProperties.DAMAGE.createValue(type),
-                CommonBlockProperties.MINECRAFT_CARDINAL_DIRECTION.createValue(original.getPropertyValue(CommonBlockProperties.MINECRAFT_CARDINAL_DIRECTION)));
+        return PROPERTIES.getBlockState(
+                CommonBlockProperties.DAMAGE.createValue(type),
+                CommonBlockProperties.MINECRAFT_CARDINAL_DIRECTION.createValue(original.getPropertyValue(CommonBlockProperties.MINECRAFT_CARDINAL_DIRECTION))
+        );
     }
 }

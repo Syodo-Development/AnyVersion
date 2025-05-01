@@ -17,12 +17,9 @@ public class UpdateBlockHandler extends PacketHandler<UpdateBlockPacket> {
     @Override
     public void handle(ProtocolPlayer player, UpdateBlockPacket packet) {
         if(packet.getDefinition() instanceof SimpleBlockDefinition definition) {
-            BlockStateDefinition blockStateDefinition = BlockStateDefinition.of(definition.getIdentifier());
-            if(Registries.BLOCKSTATE.getProtocolVersion(blockStateDefinition).protocol() > player.protocol()) {
-                BlockStateImpl downgraded = (BlockStateImpl) Registries.BLOCKSTATE.downgrade(player.getVersion(), blockStateDefinition).getDowngrade().transform(cn.nukkit.registry.Registries.BLOCKSTATE.get(definition.getRuntimeId()));
-                BlockDefinition blockDefinition = new SimpleBlockDefinition(downgraded.getIdentifier(), downgraded.blockStateHash(), definition.getState());
-                packet.setDefinition(blockDefinition);
-            }
+            BlockStateImpl downgraded = (BlockStateImpl) Registries.BLOCKSTATE.downgrade(player.getVersion(), cn.nukkit.registry.Registries.BLOCKSTATE.get(definition.getRuntimeId()));
+            BlockDefinition blockDefinition = new SimpleBlockDefinition(downgraded.getIdentifier(), downgraded.blockStateHash(), definition.getState());
+            packet.setDefinition(blockDefinition);
         } else log.warn("BlockDefinition is not a SimpleBlockDefinition");
     }
 

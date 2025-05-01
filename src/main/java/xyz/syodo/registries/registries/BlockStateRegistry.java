@@ -1,5 +1,9 @@
 package xyz.syodo.registries.registries;
 
+import cn.nukkit.Server;
+import cn.nukkit.block.BlockID;
+import cn.nukkit.block.BlockState;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import xyz.syodo.registries.Registries;
@@ -9,9 +13,11 @@ import xyz.syodo.utils.definition.ItemDefinition;
 import xyz.syodo.utils.table.ItemTable;
 import xyz.syodo.utils.table.blockstate.*;
 
+import java.util.Comparator;
+
 public class BlockStateRegistry extends Registry {
 
-    private final ObjectArraySet<BlockStateTable> TABLES = new ObjectArraySet<>();
+    private final ObjectArrayList<BlockStateTable> TABLES = new ObjectArrayList<>();
 
     @Override
     public void init() {
@@ -23,6 +29,12 @@ public class BlockStateRegistry extends Registry {
         TABLES.add(new BlockStateTable_1_21_20());
         TABLES.add(new BlockStateTable_1_21_0());
         TABLES.add(new BlockStateTable_1_20_80());
+        TABLES.add(new BlockStateTable_1_20_70());
+        TABLES.add(new BlockStateTable_1_20_60());
+        TABLES.add(new BlockStateTable_1_20_50());
+        TABLES.add(new BlockStateTable_1_20_40());
+        TABLES.add(new BlockStateTable_1_20_30());
+        TABLES.add(new BlockStateTable_1_20_10());
 
         for(BlockStateTable table : TABLES) {
             ItemTable itemTable;
@@ -39,31 +51,28 @@ public class BlockStateRegistry extends Registry {
         }
     }
 
-    public ProtocolVersion getProtocolVersion(BlockStateDefinition definition) {
-        for(BlockStateTable table : TABLES) {
-            if(table.getContent().stream().anyMatch(definition::equals)) {
-                return table.getVersion();
-            }
-        }
-        return ProtocolVersion.getMin();
-    }
-
-    public BlockStateDefinition downgrade(ProtocolVersion version, BlockStateDefinition definition) {
-        ObjectOpenHashSet<BlockStateTable> tables = new ObjectOpenHashSet<>();
+    public BlockState downgrade(ProtocolVersion version, BlockState state) {
+        BlockStateDefinition definition = BlockStateDefinition.of(state);
+        ObjectArrayList<BlockStateTable> tables = new ObjectArrayList<>();
         for(BlockStateTable table : TABLES) {
             var optresult = table.getContent().stream().filter(definition::equals).findFirst();
             if(optresult.isPresent()) {
                 tables.add(table);
             }
         }
-        BlockStateTable usedTable = new TemporaryBlockStateTable(ProtocolVersion.getCurrent(), definition);
-        for(BlockStateTable table : tables) {
+
+        final String identifier = state.getIdentifier();
+        tables.sort(Comparator.comparingInt(o -> o.getVersion().protocol()));
+        for(BlockStateTable table : tables.reversed()) {
             int prot = table.getVersion().protocol();
-            if(prot > version.protocol() && prot < usedTable.getVersion().protocol()) {
-                usedTable = table;
+            if(prot > version.protocol()) {
+                state = table.getContent().stream().filter(definition::equals).findFirst().orElse(definition).getDowngrade().transform(state);
             }
         }
-        return usedTable.getContent().stream().filter(definition::equals).findFirst().orElse(definition);
+        if(!identifier.equals(state.getIdentifier()) && !state.getIdentifier().equals(BlockID.UNKNOWN)) {
+            state = downgrade(version, state);
+        }
+        return state;
     }
 
 }

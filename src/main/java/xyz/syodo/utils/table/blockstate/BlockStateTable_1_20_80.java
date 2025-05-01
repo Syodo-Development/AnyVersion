@@ -1,7 +1,10 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
+import xyz.syodo.utils.transformer._1_20_80.CoralFanTransformer;
+import xyz.syodo.utils.transformer._1_20_80.DeadCoralFanTransformer;
 import xyz.syodo.utils.transformer._1_20_80.SaplingTransformer;
+import xyz.syodo.utils.transformer._1_20_80.RedFlowerTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static cn.nukkit.block.BlockID.DEAD_FIRE_CORAL_FAN;
@@ -17,23 +20,27 @@ public class BlockStateTable_1_20_80 extends BlockStateTable {
                 of(JUNGLE_SAPLING, new SaplingTransformer()),
                 of(OAK_SAPLING, new SaplingTransformer()),
                 of(SPRUCE_SAPLING, new SaplingTransformer()),
-                of(ORANGE_TULIP),
-                of(PINK_TULIP),
-                of(WHITE_TULIP),
-                of(RED_TULIP),
-                of(OXEYE_DAISY),
-                of(BLUE_ORCHID),
-                of(AZURE_BLUET),
-                of(TUBE_CORAL_FAN),
-                of(BRAIN_CORAL_FAN),
-                of(BUBBLE_CORAL_FAN),
-                of(HORN_CORAL_FAN),
-                of(FIRE_CORAL_FAN),
-                of(DEAD_TUBE_CORAL_FAN),
-                of(DEAD_BRAIN_CORAL_FAN),
-                of(DEAD_BUBBLE_CORAL_FAN),
-                of(DEAD_HORN_CORAL_FAN),
-                of(DEAD_FIRE_CORAL_FAN)
+                of(ALLIUM, new RedFlowerTransformer()),
+                of(CORNFLOWER, new RedFlowerTransformer()),
+                of(AZURE_BLUET, new RedFlowerTransformer()),
+                of(LILY_OF_THE_VALLEY, new RedFlowerTransformer()),
+                of(BLUE_ORCHID, new RedFlowerTransformer()),
+                of(OXEYE_DAISY, new RedFlowerTransformer()),
+                of(POPPY, new RedFlowerTransformer()),
+                of(ORANGE_TULIP, new RedFlowerTransformer()),
+                of(PINK_TULIP, new RedFlowerTransformer()),
+                of(WHITE_TULIP, new RedFlowerTransformer()),
+                of(RED_TULIP, new RedFlowerTransformer()),
+                of(TUBE_CORAL_FAN, new CoralFanTransformer()),
+                of(BRAIN_CORAL_FAN, new CoralFanTransformer()),
+                of(BUBBLE_CORAL_FAN, new CoralFanTransformer()),
+                of(HORN_CORAL_FAN, new CoralFanTransformer()),
+                of(FIRE_CORAL_FAN, new CoralFanTransformer()),
+                of(DEAD_TUBE_CORAL_FAN, new DeadCoralFanTransformer()),
+                of(DEAD_BRAIN_CORAL_FAN, new DeadCoralFanTransformer()),
+                of(DEAD_BUBBLE_CORAL_FAN, new DeadCoralFanTransformer()),
+                of(DEAD_HORN_CORAL_FAN, new DeadCoralFanTransformer()),
+                of(DEAD_FIRE_CORAL_FAN, new DeadCoralFanTransformer())
         );
     }
 }
