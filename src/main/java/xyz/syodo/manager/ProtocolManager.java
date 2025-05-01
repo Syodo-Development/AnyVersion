@@ -109,6 +109,7 @@ public class ProtocolManager implements Listener {
                 fMachine.setAccessible(false);
                 if(machine.getState() == SessionState.LOGIN) {
                     ProtocolPlayer player = new ProtocolPlayer(bedrockSession, packet.protocol);
+                    players.put(packet.clientUUID, player);
                     Field fConfig = StateMachine.class.getDeclaredField("config");
                     fConfig.setAccessible(true);
                     StateMachineConfig<SessionState, SessionState> config = (StateMachineConfig<SessionState, SessionState>) fConfig.get(machine);
