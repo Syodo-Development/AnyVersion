@@ -57,8 +57,7 @@ import org.cloudburstmc.protocol.bedrock.data.EncodingSettings;
 import java.util.Arrays;
 
 public enum ProtocolVersion {
-
-    MINECRAFT_PE_1_8(313, Bedrock_v313.CODEC),
+  /*MINECRAFT_PE_1_8(313, Bedrock_v313.CODEC),
     MINECRAFT_PE_1_9(332, Bedrock_v332.CODEC),
     MINECRAFT_PE_1_10(340, Bedrock_v340.CODEC),
     MINECRAFT_PE_1_11(354, Bedrock_v354.CODEC),
@@ -87,7 +86,7 @@ public enum ProtocolVersion {
     MINECRAFT_PE_1_19_40(557, Bedrock_v557.CODEC),
     MINECRAFT_PE_1_19_50(560, Bedrock_v560.CODEC),
     MINECRAFT_PE_1_19_60(567, Bedrock_v567.CODEC),
-    MINECRAFT_PE_1_19_63(568, Bedrock_v568.CODEC),
+    MINECRAFT_PE_1_19_63(568, Bedrock_v568.CODEC), */
     MINECRAFT_PE_1_19_70(575, Bedrock_v575.CODEC),
     MINECRAFT_PE_1_19_80(582, Bedrock_v582.CODEC),
     MINECRAFT_PE_1_20_0(589, Bedrock_v589.CODEC),
@@ -155,5 +154,7 @@ public enum ProtocolVersion {
     public static ProtocolVersion get(int protocol) {
         return Arrays.stream(versions).filter(p -> p.protocol() == protocol).findAny().get();
     }
+
+}
 
 }

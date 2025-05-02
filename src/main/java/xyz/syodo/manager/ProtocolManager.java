@@ -158,7 +158,7 @@ public class ProtocolManager implements Listener {
                 ProtocolVersion protocol = protocolPlayer.getVersion();
                 if(protocol.codec().getPacketDefinition(event.getPacket().pid()) == null) {
                     event.setCancelled();
-                    log.info("Tried to send Packet that is not available for that version!");
+                    log.info("Tried to send " + event.getPacket().getClass().getSimpleName() + " that is not available for that version! (" + protocol.protocol() + ")");
                 }
             }
         }

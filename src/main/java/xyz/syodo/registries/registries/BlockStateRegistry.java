@@ -35,6 +35,8 @@ public class BlockStateRegistry extends Registry {
         TABLES.add(new BlockStateTable_1_20_40());
         TABLES.add(new BlockStateTable_1_20_30());
         TABLES.add(new BlockStateTable_1_20_10());
+        TABLES.add(new BlockStateTable_1_20_0());
+        TABLES.add(new BlockStateTable_1_19_80());
 
         for(BlockStateTable table : TABLES) {
             ItemTable itemTable;
@@ -69,7 +71,7 @@ public class BlockStateRegistry extends Registry {
                 state = table.getContent().stream().filter(definition::equals).findFirst().orElse(definition).getDowngrade().transform(state);
             }
         }
-        if(!identifier.equals(state.getIdentifier()) && !state.getIdentifier().equals(BlockID.UNKNOWN)) {
+        if(!identifier.equals(state.getIdentifier())) {
             state = downgrade(version, state);
         }
         return state;

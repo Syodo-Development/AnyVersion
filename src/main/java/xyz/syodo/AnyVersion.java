@@ -1,15 +1,12 @@
 package xyz.syodo;
 
-import cn.nukkit.Server;
-import cn.nukkit.network.protocol.ProtocolInfo;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
 import lombok.Getter;
 import xyz.syodo.manager.ProtocolManager;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.ProtocolVersion;
-
-import java.util.Arrays;
+import xyz.syodo.utils.palette.LegacyBlockPalette;
 
 public class AnyVersion extends PluginBase {
 

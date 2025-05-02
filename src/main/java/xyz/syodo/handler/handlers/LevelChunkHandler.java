@@ -48,8 +48,9 @@ public class LevelChunkHandler extends PacketHandler<LevelChunkPacket> {
                 }
                 field.set(palette1, overwritten);
                 //Converting the second palette is not required since its just used for water and snow logging.
-                palette1.writeToNetwork(modified, BlockState::blockStateHash);
-                palette2.writeToNetwork(modified, BlockState::blockStateHash);
+
+                palette1.writeToNetwork(modified, blockState -> Registries.BLOCKPALETTE.getRuntimeId(player.getVersion(), blockState));
+                palette2.writeToNetwork(modified, blockState -> Registries.BLOCKPALETTE.getRuntimeId(player.getVersion(), blockState));
             }
         } catch (Exception exception) {
             throw new RuntimeException(exception);
