@@ -156,5 +156,3 @@ public enum ProtocolVersion {
     }
 
 }
-
-}
