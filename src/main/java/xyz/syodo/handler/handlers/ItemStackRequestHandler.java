@@ -4,10 +4,7 @@ import lombok.SneakyThrows;
 import org.cloudburstmc.protocol.bedrock.data.inventory.FullContainerName;
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.ItemStackRequest;
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.ItemStackRequestSlotData;
-import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.DestroyAction;
-import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.DropAction;
-import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.ItemStackRequestAction;
-import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.TransferItemStackRequestAction;
+import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.request.action.*;
 import org.cloudburstmc.protocol.bedrock.packet.ItemStackRequestPacket;
 import xyz.syodo.handler.PacketHandler;
 import xyz.syodo.manager.ProtocolPlayer;
@@ -50,6 +47,21 @@ public class ItemStackRequestHandler extends PacketHandler<ItemStackRequestPacke
                         Field field = source.getClass().getDeclaredField("containerName");
                         field.setAccessible(true);
                         field.set(source, new FullContainerName(source.getContainer(), 0));
+                        field.setAccessible(false);
+                    }
+                } else if(action instanceof ConsumeAction consumeAction) {
+                    ItemStackRequestSlotData source = consumeAction.getSource();
+                    if(source.getContainerName() == null) {
+                        Field field = source.getClass().getDeclaredField("containerName");
+                        field.setAccessible(true);
+                        field.set(source, new FullContainerName(source.getContainer(), 0));
+                        field.setAccessible(false);
+                    }
+                } else if(action instanceof CraftRecipeAction craftRecipeAction) {
+                    if(player.protocol() < ProtocolVersion.MINECRAFT_PE_1_21_20.protocol()) {
+                        Field field = CraftRecipeAction.class.getDeclaredField("numberOfRequestedCrafts");
+                        field.setAccessible(true);
+                        field.set(craftRecipeAction, 1);
                         field.setAccessible(false);
                     }
                 }
