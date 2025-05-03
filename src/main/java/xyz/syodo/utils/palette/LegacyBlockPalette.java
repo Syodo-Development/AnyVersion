@@ -1,6 +1,7 @@
 package xyz.syodo.utils.palette;
 
 import cn.nukkit.block.*;
+import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.stream.NBTInputStream;
 import cn.nukkit.nbt.tag.CompoundTag;
 
@@ -25,17 +26,17 @@ public class LegacyBlockPalette extends BlockPalette {
 
     public LegacyBlockPalette(ProtocolVersion version)  {
         super(version);
-        try (var stream = AnyVersion.getPlugin().getResource("states/runtime_block_states_" + version.protocol() + ".dat")) {
-            ListTag<CompoundTag> itemComponents = (ListTag<CompoundTag>) new NBTInputStream(new BufferedInputStream(new GZIPInputStream(stream)), ByteOrder.BIG_ENDIAN, false).readTag();
+        try (var stream = AnyVersion.getPlugin().getResource("states/block_palette_" + version.protocol() + ".nbt")) {
+            ListTag<CompoundTag> itemComponents = NBTIO.readCompressed(stream).getList("blocks", CompoundTag.class);
+            int runtimeId = 0;
             for(CompoundTag tag : itemComponents.getAll()) {
                 String name = tag.getString("name");
                 if(!states.containsKey(name)) {
                     this.states.put(name, new ObjectOpenHashSet<>());
                 }
                 int id = tag.getInt("id");
-                int runtimeId = tag.getInt("runtimeId");
                 Map<String, Object> states = tag.getCompound("states").parseValue();
-                LegacyBlockDefinition definition = new LegacyBlockDefinition(name, id, runtimeId, states);
+                LegacyBlockDefinition definition = new LegacyBlockDefinition(name, id, runtimeId++, states);
                 this.states.get(name).add(definition);
             }
         } catch (IOException e) {

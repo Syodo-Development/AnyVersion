@@ -9,6 +9,7 @@ import java.util.Map;
 @Getter
 @RequiredArgsConstructor
 public class LegacyBlockDefinition extends Definition {
+
     private final String name;
     private final int id;
     private final int runtimeId;

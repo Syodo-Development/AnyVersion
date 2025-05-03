@@ -24,8 +24,10 @@ public class WoodTransformer extends BlockStateTransformer {
             case ACACIA_SLAB -> WoodType.ACACIA;
             default -> WoodType.DARK_OAK;
         };
+
         return PROPERTIES.getBlockState(CommonBlockProperties.WOOD_TYPE.createValue(type),
                 CommonBlockProperties.STRIPPED_BIT.createValue(original.getIdentifier().contains(STRIPPED)),
-                CommonBlockProperties.MINECRAFT_VERTICAL_HALF.createValue(original.getPropertyValue(CommonBlockProperties.MINECRAFT_VERTICAL_HALF)));
+                CommonBlockProperties.PILLAR_AXIS.createValue(original.getPropertyValue(CommonBlockProperties.PILLAR_AXIS))
+        );
     }
 }
