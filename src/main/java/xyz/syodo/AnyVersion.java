@@ -20,12 +20,15 @@ public class AnyVersion extends PluginBase {
         } catch (Exception e) {
             new UnsupportedOperationException("The current protocol is not supported by AnyVersion! Please update the plugin.");
         }
-        setEnabled();
+
         AnyVersion.plugin = this;
+    }
+
+    @Override
+    public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ProtocolManager(), this);
 
         Registries.init();
     }
-
 }

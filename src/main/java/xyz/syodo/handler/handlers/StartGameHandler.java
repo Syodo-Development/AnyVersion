@@ -7,6 +7,7 @@ import cn.nukkit.registry.Registries;
 import org.cloudburstmc.nbt.NbtMap;
 import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
+import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemVersion;
 import org.cloudburstmc.protocol.bedrock.packet.StartGamePacket;
 import xyz.syodo.handler.PacketHandler;
@@ -33,9 +34,13 @@ public class StartGameHandler extends PacketHandler<StartGamePacket> {
                 else if (Registries.ITEM.getCustomItemDefinition().containsKey(data.identifier())) {
                     tag = Registries.ITEM.getCustomItemDefinition().get(data.identifier()).nbt();
                 }
-                SimpleItemDefinition definition = new SimpleItemDefinition(data.identifier(), data.runtimeId(), ItemVersion.from(data.version()), data.componentBased(), NbtMap.fromMap(tag.parseValue()));
-                definitions.add(definition);
 
+
+                SimpleItemDefinition definition = new SimpleItemDefinition(data.identifier(), data.runtimeId(), ItemVersion.from(data.version()), data.componentBased(), NbtMap.fromMap(tag.parseValue()));
+                ItemData cbItemdata = ItemData.builder().definition(definition).build();
+                SimpleItemDefinition downgraded = (SimpleItemDefinition) xyz.syodo.registries.Registries.ITEM.downgrade(player.getVersion(), cbItemdata).getDefinition();
+                if(downgraded.getIdentifier().equals(xyz.syodo.registries.Registries.ITEM.getOutdated(cbItemdata).getDefinition().getIdentifier())) continue;
+                definitions.add(downgraded);
             }
         }
         packet.setItemDefinitions(definitions);

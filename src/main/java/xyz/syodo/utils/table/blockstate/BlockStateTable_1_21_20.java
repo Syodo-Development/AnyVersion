@@ -1,8 +1,8 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer.IdentifierTransformer;
-import xyz.syodo.utils.transformer._1_21_20.*;
+import xyz.syodo.utils.transformer.blocks.IdentifierTransformer;
+import xyz.syodo.utils.transformer.blocks._1_21_20.*;
 
 
 import static cn.nukkit.block.BlockID.*;
@@ -47,7 +47,72 @@ public class BlockStateTable_1_21_20 extends BlockStateTable {
                 of(DANDELION, new IdentifierTransformer("minecraft:yellow_flower")),
                 of(ANVIL, new AnvilTransformer()),
                 of(DAMAGED_ANVIL, new AnvilTransformer()),
-                of(CHIPPED_ANVIL, new AnvilTransformer())
+                of(CHIPPED_ANVIL, new AnvilTransformer()),
+                of(PRISMARINE_SLAB, new StoneBlockSlab2Transformer()),
+                of(DARK_PRISMARINE_SLAB, new StoneBlockSlab2Transformer()),
+                of(SMOOTH_SANDSTONE_SLAB, new StoneBlockSlab2Transformer()),
+                of(PURPUR_SLAB, new StoneBlockSlab2Transformer()),
+                of(RED_NETHER_BRICK_SLAB, new StoneBlockSlab2Transformer()),
+                of(PRISMARINE_BRICK_SLAB, new StoneBlockSlab2Transformer()),
+                of(MOSSY_COBBLESTONE_SLAB, new StoneBlockSlab2Transformer()),
+                of(RED_SANDSTONE_SLAB, new StoneBlockSlab2Transformer()),
+                of(SMOOTH_RED_SANDSTONE_SLAB, new StoneBlockSlab3Transformer()),
+                of(POLISHED_GRANITE_SLAB, new StoneBlockSlab3Transformer()),
+                of(GRANITE_SLAB, new StoneBlockSlab3Transformer()),
+                of(POLISHED_DIORITE_SLAB, new StoneBlockSlab3Transformer()),
+                of(DIORITE_SLAB, new StoneBlockSlab3Transformer()),
+                of(POLISHED_ANDESITE_SLAB, new StoneBlockSlab3Transformer()),
+                of(ANDESITE_SLAB, new StoneBlockSlab3Transformer()),
+                of(END_STONE_BRICK_SLAB, new StoneBlockSlab3Transformer()),
+                of(MOSSY_STONE_BRICK_SLAB, new StoneBlockSlab4Transformer()),
+                of(SMOOTH_QUARTZ_SLAB, new StoneBlockSlab4Transformer()),
+                of(NORMAL_STONE_SLAB, new StoneBlockSlab4Transformer()),
+                of(CUT_SANDSTONE_SLAB, new StoneBlockSlab4Transformer()),
+                of(CUT_RED_SANDSTONE_SLAB, new StoneBlockSlab4Transformer()),
+                of(PRISMARINE_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(DARK_PRISMARINE_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(SMOOTH_SANDSTONE_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(PURPUR_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(RED_NETHER_BRICK_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(PRISMARINE_BRICK_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(MOSSY_COBBLESTONE_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(RED_SANDSTONE_DOUBLE_SLAB, new DoubleStoneBlockSlab2Transformer()),
+                of(SMOOTH_RED_SANDSTONE_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(POLISHED_GRANITE_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(GRANITE_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(POLISHED_DIORITE_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(DIORITE_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(POLISHED_ANDESITE_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(ANDESITE_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(END_STONE_BRICK_DOUBLE_SLAB, new DoubleStoneBlockSlab3Transformer()),
+                of(MOSSY_STONE_BRICK_DOUBLE_SLAB, new DoubleStoneBlockSlab4Transformer()),
+                of(SMOOTH_QUARTZ_DOUBLE_SLAB, new DoubleStoneBlockSlab4Transformer()),
+                of(NORMAL_STONE_DOUBLE_SLAB, new DoubleStoneBlockSlab4Transformer()),
+                of(CUT_SANDSTONE_DOUBLE_SLAB, new DoubleStoneBlockSlab4Transformer()),
+                of(CUT_RED_SANDSTONE_DOUBLE_SLAB, new DoubleStoneBlockSlab4Transformer()),
+                of(PRISMARINE, new PrismarineTransformer()),
+                of(PRISMARINE_BRICKS, new PrismarineTransformer()),
+                of(DARK_PRISMARINE, new PrismarineTransformer()),
+                of(TUBE_CORAL_WALL_FAN, new CoralFanHangTransformer()),
+                of(DEAD_TUBE_CORAL_WALL_FAN, new CoralFanHangTransformer()),
+                of(BRAIN_CORAL_WALL_FAN, new CoralFanHangTransformer()),
+                of(DEAD_BRAIN_CORAL_WALL_FAN, new CoralFanHangTransformer()),
+                of(BUBBLE_CORAL_WALL_FAN, new CoralFanHang2Transformer()),
+                of(DEAD_BUBBLE_CORAL_WALL_FAN, new CoralFanHang2Transformer()),
+                of(FIRE_CORAL_WALL_FAN, new CoralFanHang2Transformer()),
+                of(DEAD_FIRE_CORAL_WALL_FAN, new CoralFanHang2Transformer()),
+                of(HORN_CORAL_WALL_FAN, new CoralFanHang3Transformer()),
+                of(DEAD_HORN_CORAL_WALL_FAN, new CoralFanHang3Transformer()),
+                of(INFESTED_COBBLESTONE, new MonsterEggTransformer()),
+                of(INFESTED_STONE_BRICKS, new MonsterEggTransformer()),
+                of(INFESTED_MOSSY_STONE_BRICKS, new MonsterEggTransformer()),
+                of(INFESTED_CRACKED_STONE_BRICKS, new MonsterEggTransformer()),
+                of(INFESTED_CHISELED_STONE_BRICKS, new MonsterEggTransformer()),
+                of(INFESTED_STONE, new MonsterEggTransformer()),
+                of(STONE_BRICKS, new StoneBrickTransformer()),
+                of(MOSSY_STONE_BRICKS, new StoneBrickTransformer()),
+                of(CRACKED_STONE_BRICKS, new StoneBrickTransformer()),
+                of(CHISELED_STONE_BRICKS, new StoneBrickTransformer())
                 );
     }
 }

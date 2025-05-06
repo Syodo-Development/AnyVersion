@@ -1,10 +1,10 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_20_80.CoralFanTransformer;
-import xyz.syodo.utils.transformer._1_20_80.DeadCoralFanTransformer;
-import xyz.syodo.utils.transformer._1_20_80.SaplingTransformer;
-import xyz.syodo.utils.transformer._1_20_80.RedFlowerTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_80.CoralFanTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_80.DeadCoralFanTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_80.SaplingTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_80.RedFlowerTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static cn.nukkit.block.BlockID.DEAD_FIRE_CORAL_FAN;

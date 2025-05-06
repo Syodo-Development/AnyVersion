@@ -1,14 +1,14 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_20_30.*;
-import xyz.syodo.utils.transformer._1_20_40.FacingToCardinalTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_30.*;
+import xyz.syodo.utils.transformer.blocks._1_20_40.FacingToCardinalTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static cn.nukkit.item.ItemID.STONE_BLOCK_SLAB;
 import static cn.nukkit.item.ItemID.WOODEN_SLAB;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;
-import static xyz.syodo.utils.transformer._1_20_70.DoubleWoodenSlabTransformer.DOUBLE_WOODEN_SLAB;
+import static xyz.syodo.utils.transformer.blocks._1_20_70.DoubleWoodenSlabTransformer.DOUBLE_WOODEN_SLAB;
 
 public class BlockStateTable_1_20_30 extends BlockStateTable {
 
@@ -98,7 +98,7 @@ public class BlockStateTable_1_20_30 extends BlockStateTable {
                 of(POWERED_COMPARATOR, new PoweredComperatorTransformer()),
                 of(POWERED_REPEATER, new PoweredRepeaterTransformer()),
                 of(SMALL_DRIPLEAF_BLOCK, new SmallDripleafTransformer()),
-                of(UNPOWERED_COMPARATOR, new PoweredRepeaterTransformer()),
+                of(UNPOWERED_COMPARATOR, new PoweredComperatorTransformer()),
                 of(UNPOWERED_REPEATER, new PoweredRepeaterTransformer()),
                 of(BAMBOO_MOSAIC_SLAB, new BasicSlabTransformer()),
                 of(BAMBOO_SLAB, new BasicSlabTransformer()),

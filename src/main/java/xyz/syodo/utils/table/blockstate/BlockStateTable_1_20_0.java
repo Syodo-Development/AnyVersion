@@ -1,10 +1,10 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_20_0.SculkSensorTransformer;
-import xyz.syodo.utils.transformer._1_20_0.CarpetTransformer;
-import xyz.syodo.utils.transformer._1_20_0.CoralTransformer;
-import xyz.syodo.utils.transformer._1_20_30.DirectionToCardinalTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_0.SculkSensorTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_0.CarpetTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_0.CoralTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_30.DirectionToCardinalTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static cn.nukkit.block.BlockID.DEAD_HORN_CORAL;

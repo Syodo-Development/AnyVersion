@@ -1,7 +1,14 @@
 package xyz.syodo.utils;
 
+import cn.nukkit.block.BlockID;
+import cn.nukkit.block.BlockState;
+import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.network.protocol.ProtocolInfo;
+import cn.nukkit.registry.ItemRegistry;
+import cn.nukkit.registry.ItemRuntimeIdRegistry;
+import cn.nukkit.registry.Registries;
 import lombok.Getter;
+import org.cloudburstmc.nbt.NbtMap;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodec;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v313.Bedrock_v313;
@@ -53,8 +60,18 @@ import org.cloudburstmc.protocol.bedrock.codec.v766.Bedrock_v766;
 import org.cloudburstmc.protocol.bedrock.codec.v776.Bedrock_v776;
 import org.cloudburstmc.protocol.bedrock.codec.v786.Bedrock_v786;
 import org.cloudburstmc.protocol.bedrock.data.EncodingSettings;
+import org.cloudburstmc.protocol.bedrock.data.definitions.BlockDefinition;
+import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
+import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleBlockDefinition;
+import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
+import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
+import org.cloudburstmc.protocol.bedrock.data.inventory.ItemVersion;
+import org.cloudburstmc.protocol.common.DefinitionRegistry;
+import org.cloudburstmc.protocol.common.SimpleDefinitionRegistry;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public enum ProtocolVersion {
   /*MINECRAFT_PE_1_8(313, Bedrock_v313.CODEC),
@@ -154,5 +171,4 @@ public enum ProtocolVersion {
     public static ProtocolVersion get(int protocol) {
         return Arrays.stream(versions).filter(p -> p.protocol() == protocol).findAny().get();
     }
-
 }

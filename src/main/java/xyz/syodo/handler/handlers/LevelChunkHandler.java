@@ -12,8 +12,6 @@ import xyz.syodo.handler.PacketHandler;
 import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.BlockStateRuntimeDataDeserializer;
-import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.definition.BlockStateDefinition;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

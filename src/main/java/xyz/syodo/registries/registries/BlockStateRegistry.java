@@ -1,17 +1,15 @@
 package xyz.syodo.registries.registries;
 
-import cn.nukkit.Server;
-import cn.nukkit.block.BlockID;
 import cn.nukkit.block.BlockState;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import it.unimi.dsi.fastutil.objects.ObjectArraySet;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.BlockStateDefinition;
 import xyz.syodo.utils.definition.ItemDefinition;
-import xyz.syodo.utils.table.ItemTable;
+import xyz.syodo.utils.table.item.ItemTable;
 import xyz.syodo.utils.table.blockstate.*;
+import xyz.syodo.utils.transformer.items.ItemBlockTransformer;
+import xyz.syodo.utils.transformer.items.UnknownItemTransformer;
 
 import java.util.Comparator;
 
@@ -48,12 +46,17 @@ public class BlockStateRegistry extends Registry {
                 Registries.ITEM.getTables().add(itemTable);
             }
             for(BlockStateDefinition definition : table.getContent()) {
-                itemTable.addAll(ItemDefinition.of(definition.getIdentifier()));
+                itemTable.addAll(ItemDefinition.of(definition.getIdentifier(), new ItemBlockTransformer(table.getVersion())));
             }
         }
     }
 
     public BlockState downgrade(ProtocolVersion version, BlockState state) {
+        return downgrade(version, state, true);
+    }
+
+    public BlockState downgrade(ProtocolVersion version, BlockState state, boolean ignoreEqual) {
+        final String identifier = state.getIdentifier();
         BlockStateDefinition definition = BlockStateDefinition.of(state);
         ObjectArrayList<BlockStateTable> tables = new ObjectArrayList<>();
         for(BlockStateTable table : TABLES) {
@@ -63,17 +66,18 @@ public class BlockStateRegistry extends Registry {
             }
         }
 
-        final String identifier = state.getIdentifier();
         tables.sort(Comparator.comparingInt(o -> o.getVersion().protocol()));
         for(BlockStateTable table : tables.reversed()) {
             int prot = table.getVersion().protocol();
-            if(prot > version.protocol()) {
+            if(prot > version.protocol() || (!ignoreEqual && prot == version.protocol())) {
                 state = table.getContent().stream().filter(definition::equals).findFirst().orElse(definition).getDowngrade().transform(state);
+                version = table.getVersion();
             }
         }
         if(!identifier.equals(state.getIdentifier())) {
-            state = downgrade(version, state);
+            state.getBlockStateTag().getCompound("states").putString("identifier", identifier);
         }
+        state.getBlockStateTag().getCompound("states").putString("identifier", identifier);
         return state;
     }
 

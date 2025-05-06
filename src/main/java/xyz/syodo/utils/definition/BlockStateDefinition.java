@@ -1,12 +1,11 @@
 package xyz.syodo.utils.definition;
 
 import cn.nukkit.block.BlockState;
-import cn.nukkit.registry.Registries;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import xyz.syodo.utils.transformer.BlockStateTransformer;
-import xyz.syodo.utils.transformer.UnknownStateTransformer;
+import xyz.syodo.utils.transformer.blocks.BlockStateTransformer;
+import xyz.syodo.utils.transformer.blocks.UnknownStateTransformer;
 
 @Getter
 @AllArgsConstructor
@@ -26,10 +25,6 @@ public class BlockStateDefinition extends Definition {
 
     public static BlockStateDefinition of(String id, BlockStateTransformer transformer) {
         return new BlockStateDefinition(id, transformer);
-    }
-
-    public int getDowngradeHash(BlockState origen) {
-        return downgrade.transform(origen).blockStateHash();
     }
 
     @Override

@@ -1,8 +1,8 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer.IdentifierTransformer;
-import xyz.syodo.utils.transformer._1_20_70.*;
+import xyz.syodo.utils.transformer.blocks.IdentifierTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_70.*;
 
 import static cn.nukkit.block.BlockID.*;
 import static cn.nukkit.tags.BlockTags.GRASS;

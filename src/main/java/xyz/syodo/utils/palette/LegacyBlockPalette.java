@@ -1,13 +1,20 @@
 package xyz.syodo.utils.palette;
 
 import cn.nukkit.block.*;
+import cn.nukkit.block.property.type.BlockPropertyType;
+import cn.nukkit.block.property.type.BooleanPropertyType;
+import cn.nukkit.block.property.type.EnumPropertyType;
+import cn.nukkit.block.property.type.IntPropertyType;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.stream.NBTInputStream;
 import cn.nukkit.nbt.tag.CompoundTag;
 
+import cn.nukkit.nbt.tag.CompoundTagView;
 import cn.nukkit.nbt.tag.ListTag;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import org.cloudburstmc.nbt.NbtMap;
+import org.jetbrains.annotations.UnmodifiableView;
 import xyz.syodo.AnyVersion;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.LegacyBlockDefinition;
@@ -15,8 +22,9 @@ import xyz.syodo.utils.definition.LegacyBlockDefinition;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
 
 import static cn.nukkit.block.BlockID.INFO_UPDATE;
 
@@ -55,5 +63,4 @@ public class LegacyBlockPalette extends BlockPalette {
         }
         return getRuntimeId(new BlockProperties(INFO_UPDATE).getDefaultState());
     }
-
 }

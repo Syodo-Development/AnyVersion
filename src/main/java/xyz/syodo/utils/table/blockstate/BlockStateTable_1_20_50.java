@@ -1,10 +1,8 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_20_50.PlanksTransformer;
-import xyz.syodo.utils.transformer._1_20_50.StoneTransformer;
-import xyz.syodo.utils.transformer._1_20_60.HardStainedGlassPaneTransformer;
-import xyz.syodo.utils.transformer._1_20_60.HardStainedGlassTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_50.PlanksTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_50.StoneTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;

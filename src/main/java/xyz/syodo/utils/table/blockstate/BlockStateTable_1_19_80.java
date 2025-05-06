@@ -1,13 +1,13 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_19_80.FenceTransformer;
-import xyz.syodo.utils.transformer._1_19_80.NewLogTransformer;
-import xyz.syodo.utils.transformer._1_19_80.OldLogTransformer;
+import xyz.syodo.utils.transformer.blocks._1_19_80.FenceTransformer;
+import xyz.syodo.utils.transformer.blocks._1_19_80.NewLogTransformer;
+import xyz.syodo.utils.transformer.blocks._1_19_80.OldLogTransformer;
 
 
 import static cn.nukkit.block.BlockID.*;
-import static xyz.syodo.utils.transformer._1_19_80.UpdateTransformer.of;
+import static xyz.syodo.utils.transformer.blocks._1_19_80.UpdateTransformer.of;
 
 public class BlockStateTable_1_19_80 extends BlockStateTable {
 
