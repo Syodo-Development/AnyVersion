@@ -8,6 +8,7 @@ import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.event.server.DataPacketReceiveEvent;
 import cn.nukkit.event.server.DataPacketSendEvent;
+import cn.nukkit.event.server.ServerStartedEvent;
 import cn.nukkit.network.Network;
 import cn.nukkit.network.connection.BedrockPeer;
 import cn.nukkit.network.connection.BedrockSession;
@@ -24,6 +25,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
 import xyz.syodo.AnyVersion;
 import xyz.syodo.processors.PEmoteProcessor;
+import xyz.syodo.utils.CloudburstRegistry;
 import xyz.syodo.utils.PBedrockPacketCodec;
 import xyz.syodo.utils.ProtocolVersion;
 
@@ -158,7 +160,7 @@ public class ProtocolManager implements Listener {
                 ProtocolVersion protocol = protocolPlayer.getVersion();
                 if(protocol.codec().getPacketDefinition(event.getPacket().pid()) == null) {
                     event.setCancelled();
-                    log.info("Tried to send " + event.getPacket().getClass().getSimpleName() + " that is not available for that version! (" + protocol.protocol() + ")");
+                    log.debug("Tried to send " + event.getPacket().getClass().getSimpleName() + " that is not available for that version! (" + protocol.protocol() + ")");
                 }
             }
         }

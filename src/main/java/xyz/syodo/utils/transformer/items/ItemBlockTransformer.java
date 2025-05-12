@@ -5,12 +5,12 @@ import cn.nukkit.block.BlockID;
 import cn.nukkit.block.BlockState;
 import lombok.RequiredArgsConstructor;
 import org.cloudburstmc.nbt.NbtMap;
-import org.cloudburstmc.protocol.bedrock.data.definitions.BlockDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleBlockDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
 import xyz.syodo.registries.Registries;
+import xyz.syodo.registries.registries.BlockStateRegistry;
 import xyz.syodo.utils.ProtocolVersion;
 
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class ItemBlockTransformer extends ItemDataTransformer {
         BlockState originalBlockState = cn.nukkit.registry.Registries.BLOCKSTATE.get(simpleBlockDefinition.getRuntimeId());
         if(originalBlockState == null) originalBlockState = Block.get(original.getDefinition().getIdentifier()).getProperties().getDefaultState();
         if(originalBlockState == null) return Registries.ITEM.getOutdated(original);
-        BlockState downgraded = Registries.BLOCKSTATE.downgrade(version, originalBlockState, false);
+        BlockState downgraded = Registries.BLOCKSTATE.downgrade(version, BlockStateRegistry.clone(originalBlockState), true, Integer.MAX_VALUE);
         if(downgraded.getIdentifier().equals(BlockID.UNKNOWN) || downgraded.getIdentifier().equals(BlockID.INFO_UPDATE)) return Registries.ITEM.getOutdated(original);
         SimpleBlockDefinition blockDefinition = new SimpleBlockDefinition(downgraded.getIdentifier(), downgraded.blockStateHash(), NbtMap.fromMap(downgraded.getBlockStateTag().parseValue()));
         ItemDefinition originalItemDefinition = original.getDefinition();

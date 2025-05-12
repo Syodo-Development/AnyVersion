@@ -17,8 +17,11 @@ public class StoneTransformer extends BlockStateTransformer {
 
         BlockProperties PROPERTIES = new BlockProperties(STONE, STONE_TYPE);
         StoneType type = switch(original.getIdentifier()) {
-            case POLISHED_GRANITE -> StoneType.GRANITE;
-            case POLISHED_DIORITE -> StoneType.DIORITE;
+            case GRANITE -> StoneType.GRANITE;
+            case DIORITE -> StoneType.DIORITE;
+            case ANDESITE -> StoneType.ANDESITE;
+            case POLISHED_GRANITE -> StoneType.GRANITE_SMOOTH;
+            case POLISHED_DIORITE -> StoneType.DIORITE_SMOOTH;
             default -> StoneType.ANDESITE_SMOOTH;
         };
         return PROPERTIES.getBlockState(STONE_TYPE.createValue(type));

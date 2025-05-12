@@ -1,5 +1,6 @@
 package xyz.syodo.utils.transformer.items._1_21_0;
 
+import cn.nukkit.block.BlockID;
 import cn.nukkit.block.property.enums.StoneSlabType;
 import cn.nukkit.registry.Registries;
 import org.cloudburstmc.nbt.NbtMap;
@@ -17,7 +18,7 @@ public class StoneBlockSlabTransformer extends ItemDataTransformer {
     public ItemData transform(ItemData original) {
         SimpleBlockDefinition definition = (SimpleBlockDefinition) original.getBlockDefinition();
         ItemDefinition originalItemDefinition = original.getDefinition();
-        int runtimeId = Registries.ITEM_RUNTIMEID.getInt(originalItemDefinition.getIdentifier());
+        int runtimeId = Registries.ITEM_RUNTIMEID.getInt(BlockID.SMOOTH_STONE_SLAB);
         NbtMap map = NbtMap.fromMap((Map<String, Object>) definition.getState().get("states"));
         int damage = map.isEmpty() || map.getString("stone_slab_type").isEmpty() ? 0 : StoneSlabType.valueOf(map.getString("stone_slab_type").toUpperCase()).ordinal();
         SimpleItemDefinition itemDefinition = new SimpleItemDefinition(originalItemDefinition.getIdentifier(), runtimeId, originalItemDefinition.getVersion(), originalItemDefinition.isComponentBased(), originalItemDefinition.getComponentData());

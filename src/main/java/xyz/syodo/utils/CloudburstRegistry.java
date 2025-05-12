@@ -31,11 +31,15 @@ public class CloudburstRegistry {
         return INSTANCE;
     }
 
-    private final DefinitionRegistry<ItemDefinition> itemDefinitionRegistry;
-    private final DefinitionRegistry<BlockDefinition> blockDefinitionRegistry;
-    private final DefinitionRegistry<NamedDefinition> namedDefinitionRegistry;
+    private DefinitionRegistry<ItemDefinition> itemDefinitionRegistry;
+    private DefinitionRegistry<BlockDefinition> blockDefinitionRegistry;
+    private DefinitionRegistry<NamedDefinition> namedDefinitionRegistry;
 
     private CloudburstRegistry() {
+        reload();
+    }
+
+    protected void reload() {
         List<ItemDefinition> itemDefinitions = new ArrayList<>();
         for(ItemRuntimeIdRegistry.ItemData data : ItemRuntimeIdRegistry.getITEMDATA()) {
             CompoundTag tag = new CompoundTag();

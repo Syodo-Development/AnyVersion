@@ -38,6 +38,7 @@ public class ModalFormRequestHandler extends PacketHandler<ModalFormRequestPacke
                     formData.add("content", copiedElements);
                 }
             }
+
             packet.setFormData(formData.toString());
         }
     }

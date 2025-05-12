@@ -10,7 +10,11 @@ public class ItemDataTable_1_19_80 extends ItemTable {
 
     public ItemDataTable_1_19_80() {
         super(ProtocolVersion.MINECRAFT_PE_1_19_80,
-                of(FENCE, new FenceTransformer())
+                of(FENCE, new FenceTransformer()),
+                of(LOG),
+                of(LOG2),
+                of(BOAT),
+                of(CHEST_BOAT)
         );
     }
 

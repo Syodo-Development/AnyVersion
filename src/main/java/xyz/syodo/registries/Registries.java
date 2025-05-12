@@ -12,6 +12,8 @@ public class Registries {
     public static final ItemRegistry ITEM = new ItemRegistry();
     public static final BlockStateRegistry BLOCKSTATE = new BlockStateRegistry();
     public static final BlockPaletteRegistry BLOCKPALETTE = new BlockPaletteRegistry();
+    public static final EntityRegistry ENTITY = new EntityRegistry();
+
 
     public static void init() {
         if(!initiated) {
@@ -19,6 +21,7 @@ public class Registries {
             ITEM.init();
             BLOCKSTATE.init();
             BLOCKPALETTE.init();
+            ENTITY.init();
         }
     }
 

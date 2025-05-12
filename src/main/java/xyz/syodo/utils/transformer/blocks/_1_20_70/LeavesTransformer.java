@@ -15,9 +15,9 @@ public class LeavesTransformer extends BlockStateTransformer {
     public BlockState transform(BlockState original) {
         BlockProperties PROPERTIES = new BlockProperties(LEAVES, CommonBlockProperties.OLD_LEAF_TYPE, CommonBlockProperties.PERSISTENT_BIT, CommonBlockProperties.UPDATE_BIT);
         OldLeafType type = switch(original.getIdentifier()) {
-            case OAK_DOUBLE_SLAB -> OldLeafType.OAK;
-            case SPRUCE_DOUBLE_SLAB -> OldLeafType.SPRUCE;
-            case BIRCH_DOUBLE_SLAB -> OldLeafType.BIRCH;
+            case OAK_LEAVES -> OldLeafType.OAK;
+            case SPRUCE_LEAVES -> OldLeafType.SPRUCE;
+            case BIRCH_LEAVES -> OldLeafType.BIRCH;
             default -> OldLeafType.JUNGLE;
         };
         return PROPERTIES.getBlockState(CommonBlockProperties.OLD_LEAF_TYPE.createValue(type),

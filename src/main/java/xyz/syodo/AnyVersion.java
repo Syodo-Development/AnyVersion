@@ -6,6 +6,7 @@ import lombok.Getter;
 import xyz.syodo.manager.ProtocolManager;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.ProtocolVersion;
+import xyz.syodo.utils.ServerStartedListener;
 import xyz.syodo.utils.palette.LegacyBlockPalette;
 
 public class AnyVersion extends PluginBase {
@@ -16,7 +17,7 @@ public class AnyVersion extends PluginBase {
     @Override
     public void onLoad() {
         try {
-            ProtocolVersion.getCurrent(); //Fails when version not found!
+            ProtocolVersion.getCurrent();
         } catch (Exception e) {
             new UnsupportedOperationException("The current protocol is not supported by AnyVersion! Please update the plugin.");
         }
@@ -28,7 +29,7 @@ public class AnyVersion extends PluginBase {
     public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ProtocolManager(), this);
-
+        pluginManager.registerEvents(new ServerStartedListener(), this);
         Registries.init();
     }
 }

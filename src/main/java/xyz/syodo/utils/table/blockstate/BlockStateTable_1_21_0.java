@@ -2,7 +2,6 @@ package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.transformer.blocks._1_21_0.*;
-import xyz.syodo.utils.transformer.blocks._1_21_20.*;
 
 import static cn.nukkit.block.BlockID.*;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;
@@ -11,14 +10,6 @@ public class BlockStateTable_1_21_0 extends BlockStateTable {
 
     public BlockStateTable_1_21_0() {
         super(ProtocolVersion.MINECRAFT_PE_1_21_0,
-                of(SMOOTH_STONE_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
-                of(SANDSTONE_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
-                of(PETRIFIED_OAK_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
-                of(COBBLESTONE_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
-                of(BRICK_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
-                of(STONE_BRICK_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
-                of(QUARTZ_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
-                of(NETHER_BRICK_DOUBLE_SLAB, new DoubleStoneBlockSlabTransformer()),
                 of(SMOOTH_STONE_SLAB, new StoneBlockSlabTransformer()),
                 of(SANDSTONE_SLAB, new StoneBlockSlabTransformer()),
                 of(PETRIFIED_OAK_SLAB, new StoneBlockSlabTransformer()),
@@ -27,6 +18,24 @@ public class BlockStateTable_1_21_0 extends BlockStateTable {
                 of(STONE_BRICK_SLAB, new StoneBlockSlabTransformer()),
                 of(QUARTZ_SLAB, new StoneBlockSlabTransformer()),
                 of(NETHER_BRICK_SLAB, new StoneBlockSlabTransformer()),
+                of(TUBE_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(BRAIN_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(BUBBLE_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(FIRE_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(HORN_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(DEAD_TUBE_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(DEAD_BRAIN_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(DEAD_BUBBLE_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(DEAD_FIRE_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(DEAD_HORN_CORAL_BLOCK, new CoralBlockTransformer()),
+                of(SUNFLOWER, new DoublePlantTransformer()),
+                of(LILAC, new DoublePlantTransformer()),
+                of(TALL_GRASS, new DoublePlantTransformer()),
+                of(LARGE_FERN, new DoublePlantTransformer()),
+                of(ROSE_BUSH, new DoublePlantTransformer()),
+                of(PEONY, new DoublePlantTransformer()),
+                of(SHORT_GRASS, new TallgrassTransformer()),
+                of(FERN, new TallgrassTransformer()),
                 of(CHISELED_COPPER),
                 of(CHISELED_TUFF),
                 of(CHISELED_TUFF_BRICKS),

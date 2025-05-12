@@ -36,6 +36,8 @@ public class PacketHandlerRegistry extends Registry {
         HANDLERS.add(new AddItemEntityHandler());
         HANDLERS.add(new AddPlayerHandler());
         HANDLERS.add(new CraftingDataHandler());
+        HANDLERS.add(new BiomeDefinitionListHandler());
+        HANDLERS.add(new AddEntityHandler());
     }
 
     public boolean handlePacket(ProtocolPlayer player, BedrockPacket packet) {

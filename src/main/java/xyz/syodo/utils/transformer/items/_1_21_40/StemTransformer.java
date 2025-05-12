@@ -15,7 +15,6 @@ public class StemTransformer extends ItemDataTransformer {
 
     @Override
     public ItemData transform(ItemData original) {
-
         SimpleBlockDefinition originalDefinition = (SimpleBlockDefinition) original.getBlockDefinition();
         NbtMap map = NbtMap.fromMap((Map<String, Object>) originalDefinition.getState().get("states"));
         int bits = switch (map.getString("identifier")) {

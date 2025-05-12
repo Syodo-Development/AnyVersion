@@ -45,6 +45,7 @@ public class BlockStateTable_1_20_30 extends BlockStateTable {
                 of(RED_STAINED_GLASS_PANE, new StainedGlassPaneTransformer()),
                 of(LIGHT_GRAY_STAINED_GLASS_PANE, new StainedGlassPaneTransformer()),
                 of(YELLOW_STAINED_GLASS_PANE, new StainedGlassPaneTransformer()),
+                of(WHITE_STAINED_GLASS_PANE, new StainedGlassPaneTransformer()),
                 of(WHITE_TERRACOTTA, new StainedHardenedClayTransformer()),
                 of(BLACK_TERRACOTTA, new StainedHardenedClayTransformer()),
                 of(BLUE_TERRACOTTA, new StainedHardenedClayTransformer()),

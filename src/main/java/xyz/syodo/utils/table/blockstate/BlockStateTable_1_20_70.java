@@ -18,7 +18,6 @@ public class BlockStateTable_1_20_70 extends BlockStateTable {
                 of(JUNGLE_DOUBLE_SLAB, new DoubleWoodenSlabTransformer()),
                 of(ACACIA_DOUBLE_SLAB, new DoubleWoodenSlabTransformer()),
                 of(DARK_OAK_DOUBLE_SLAB, new DoubleWoodenSlabTransformer()),
-                //of(CHERRY_DOUBLE_SLAB, new DoubleWoodenSlabTransformer()),
                 of(OAK_LEAVES, new LeavesTransformer()),
                 of(SPRUCE_LEAVES, new LeavesTransformer()),
                 of(BIRCH_LEAVES, new LeavesTransformer()),
@@ -32,11 +31,17 @@ public class BlockStateTable_1_20_70 extends BlockStateTable {
                 of(ACACIA_SLAB, new WoodenSlabTransformer()),
                 of(DARK_OAK_SLAB, new WoodenSlabTransformer()),
                 of(OAK_WOOD, new WoodTransformer()),
-                of(SPRUCE_LOG, new WoodTransformer()),
+                of(SPRUCE_WOOD, new WoodTransformer()),
                 of(BIRCH_WOOD, new WoodTransformer()),
                 of(JUNGLE_WOOD, new WoodTransformer()),
                 of(ACACIA_WOOD, new WoodTransformer()),
                 of(DARK_OAK_WOOD, new WoodTransformer()),
+                of(STRIPPED_OAK_WOOD, new WoodTransformer()),
+                of(STRIPPED_SPRUCE_WOOD, new WoodTransformer()),
+                of(STRIPPED_BIRCH_WOOD, new WoodTransformer()),
+                of(STRIPPED_JUNGLE_WOOD, new WoodTransformer()),
+                of(STRIPPED_ACACIA_WOOD, new WoodTransformer()),
+                of(STRIPPED_DARK_OAK_WOOD, new WoodTransformer()),
                 of(GRASS_BLOCK, new IdentifierTransformer(GRASS))
         );
     }

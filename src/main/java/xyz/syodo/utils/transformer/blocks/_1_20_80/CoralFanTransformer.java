@@ -13,12 +13,9 @@ public class CoralFanTransformer extends BlockStateTransformer {
 
     private static final String CORAL_FAN = "minecraft:coral_fan";
 
-    EnumPropertyType<CoralColor> CORAL_COLOR = EnumPropertyType.of("coral_color", CoralColor.class, CoralColor.values()[0]);
-
-
     @Override
     public BlockState transform(BlockState original) {
-        BlockProperties PROPERTIES = new BlockProperties(CORAL_FAN, CORAL_COLOR, CommonBlockProperties.CORAL_FAN_DIRECTION);
+        BlockProperties PROPERTIES = new BlockProperties(CORAL_FAN, CommonBlockProperties.CORAL_COLOR, CommonBlockProperties.CORAL_FAN_DIRECTION);
         CoralColor type = switch(original.getIdentifier()) {
             case TUBE_CORAL_FAN -> CoralColor.BLUE;
             case BRAIN_CORAL_FAN -> CoralColor.PINK;
@@ -26,7 +23,7 @@ public class CoralFanTransformer extends BlockStateTransformer {
             case BUBBLE_CORAL_FAN -> CoralColor.PURPLE;
             default -> CoralColor.YELLOW;
         };
-        return PROPERTIES.getBlockState(CORAL_COLOR.createValue(type),
+        return PROPERTIES.getBlockState(CommonBlockProperties.CORAL_COLOR.createValue(type),
                 CommonBlockProperties.CORAL_FAN_DIRECTION.createValue(original.getPropertyValue(CommonBlockProperties.CORAL_FAN_DIRECTION)));
     }
 

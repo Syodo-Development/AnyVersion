@@ -17,11 +17,11 @@ public class WoodTransformer extends BlockStateTransformer {
     public BlockState transform(BlockState original) {
         BlockProperties PROPERTIES = new BlockProperties(WOOD, CommonBlockProperties.PILLAR_AXIS, CommonBlockProperties.STRIPPED_BIT, CommonBlockProperties.WOOD_TYPE);
         WoodType type = switch(original.getIdentifier().replace(STRIPPED, "")) {
-            case OAK_SLAB -> WoodType.OAK;
-            case SPRUCE_SLAB -> WoodType.SPRUCE;
-            case BIRCH_SLAB -> WoodType.BIRCH;
-            case JUNGLE_SLAB -> WoodType.JUNGLE;
-            case ACACIA_SLAB -> WoodType.ACACIA;
+            case OAK_WOOD -> WoodType.OAK;
+            case SPRUCE_WOOD -> WoodType.SPRUCE;
+            case BIRCH_WOOD -> WoodType.BIRCH;
+            case JUNGLE_WOOD -> WoodType.JUNGLE;
+            case ACACIA_WOOD -> WoodType.ACACIA;
             default -> WoodType.DARK_OAK;
         };
 
