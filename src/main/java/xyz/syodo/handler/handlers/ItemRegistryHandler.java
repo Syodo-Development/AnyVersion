@@ -25,7 +25,14 @@ public class ItemRegistryHandler extends PacketHandler<ItemComponentPacket> {
             List<ItemDefinition> definitions = new ArrayList<>();
             for(ItemRuntimeIdRegistry.ItemData data : ItemRuntimeIdRegistry.getITEMDATA()) {
                 if (Registries.ITEM.getCustomItemDefinition().containsKey(data.identifier())) {
-                    CompoundTag tag = Registries.ITEM.getCustomItemDefinition().get(data.identifier()).nbt();
+                    CompoundTag tag = Registries.ITEM.getCustomItemDefinition().get(data.identifier()).nbt().copy();
+                    if(player.getVersion().protocol() < ProtocolVersion.MINECRAFT_PE_1_20_60.protocol()) {
+                        CompoundTag icon = tag.getCompound("components")
+                                .getCompound("item_properties")
+                                .getCompound("minecraft:icon");
+                        icon.putString("texture", icon.getCompound("textures").getString("default"));
+                        icon.remove("textures");
+                    }
                     NbtMap map = fromCompound(tag);
                     definitions.add(new SimpleItemDefinition(data.identifier(), data.runtimeId(), ItemVersion.from(data.version()), data.componentBased(), map));
                 }
