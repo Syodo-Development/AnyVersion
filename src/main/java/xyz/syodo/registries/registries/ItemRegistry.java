@@ -67,7 +67,6 @@ public class ItemRegistry extends Registry {
         }
         ItemData finalData = data;
         if(cn.nukkit.registry.Registries.BLOCK.getCustomBlockDefinitionList().stream().anyMatch(b -> b.identifier().equals(finalData.getDefinition().getIdentifier()))) {
-            Server.getInstance().getLogger().info(data.toString());
             return data;
         }
         SimpleItemDefinition stateDefinition = (SimpleItemDefinition) data.getDefinition();
