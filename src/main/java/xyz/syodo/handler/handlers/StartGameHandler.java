@@ -5,6 +5,7 @@ import cn.nukkit.registry.ItemRegistry;
 import cn.nukkit.registry.ItemRuntimeIdRegistry;
 import cn.nukkit.registry.Registries;
 import org.cloudburstmc.nbt.NbtMap;
+import org.cloudburstmc.protocol.bedrock.data.AuthoritativeMovementMode;
 import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
@@ -23,6 +24,11 @@ public class StartGameHandler extends PacketHandler<StartGamePacket> {
     @Override
     public void handle(ProtocolPlayer player, StartGamePacket packet) {
         List<ItemDefinition> definitions = new ArrayList<>();
+
+        if(player.protocol() < ProtocolVersion.MINECRAFT_PE_1_21_90.protocol()) {
+            packet.setAuthoritativeMovementMode(AuthoritativeMovementMode.SERVER);
+        }
+
         if(player.protocol() < ProtocolVersion.MINECRAFT_PE_1_21_60.protocol()) {
             for(ItemRuntimeIdRegistry.ItemData data : ItemRuntimeIdRegistry.getITEMDATA()) {
                 CompoundTag tag = new CompoundTag();
@@ -34,8 +40,6 @@ public class StartGameHandler extends PacketHandler<StartGamePacket> {
                 else if (Registries.ITEM.getCustomItemDefinition().containsKey(data.identifier())) {
                     tag = Registries.ITEM.getCustomItemDefinition().get(data.identifier()).nbt();
                 }
-
-
                 SimpleItemDefinition definition = new SimpleItemDefinition(data.identifier(), data.runtimeId(), ItemVersion.from(data.version()), data.componentBased(), NbtMap.fromMap(tag.parseValue()));
                 ItemData cbItemdata = ItemData.builder().definition(definition).build();
                 SimpleItemDefinition downgraded = (SimpleItemDefinition) xyz.syodo.registries.Registries.ITEM.downgrade(player.getVersion(), cbItemdata).getDefinition();

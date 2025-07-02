@@ -16,6 +16,7 @@ public class BlockStateRegistry extends Registry {
 
     @Override
     public void init() {
+        TABLES.add(new BlockStateTable_1_21_90());
         TABLES.add(new BlockStateTable_1_21_70());
         TABLES.add(new BlockStateTable_1_21_60());
         TABLES.add(new BlockStateTable_1_21_50());

@@ -8,6 +8,7 @@ import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.table.entity.EntityTable;
 import xyz.syodo.utils.table.entity.EntityTable_1_20_0;
 import xyz.syodo.utils.table.entity.EntityTable_1_21_0;
+import xyz.syodo.utils.table.entity.EntityTable_1_21_90;
 
 import java.util.Comparator;
 
@@ -17,6 +18,7 @@ public class EntityRegistry extends Registry {
 
     @Override
     public void init() {
+        TABLES.add(new EntityTable_1_21_90());
         TABLES.add(new EntityTable_1_21_0());
         TABLES.add(new EntityTable_1_20_0());
     }

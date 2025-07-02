@@ -100,7 +100,7 @@
         <dependency>
             <groupId>org.cloudburstmc.protocol</groupId>
             <artifactId>bedrock-codec</artifactId>
-            <version>3.0.0.Beta6-20250506.012145-17</version>
+            <version>3.0.0.Beta7-20250619.102015-10</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

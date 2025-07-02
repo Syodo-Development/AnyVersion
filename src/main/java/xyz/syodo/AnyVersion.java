@@ -7,7 +7,6 @@ import xyz.syodo.manager.ProtocolManager;
 import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.ServerStartedListener;
-import xyz.syodo.utils.palette.LegacyBlockPalette;
 
 public class AnyVersion extends PluginBase {
 

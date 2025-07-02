@@ -41,6 +41,7 @@ public class ItemRegistry extends Registry {
 
     @Override
     public void init() {
+        TABLES.add(new ItemDataTable_1_21_90());
         TABLES.add(new ItemDataTable_1_21_70());
         TABLES.add(new ItemDataTable_1_21_50());
         TABLES.add(new ItemDataTable_1_21_40());
@@ -62,6 +63,9 @@ public class ItemRegistry extends Registry {
     }
 
     public ItemData downgrade(ProtocolVersion version, ItemData data, BlockState state, HashMap<Integer, ObjectArrayList<Class<? extends ItemDataTransformer>>> usedDefinitions) {
+        if(data.getDefinition().getIdentifier().equalsIgnoreCase(BlockID.BARRIER)) {
+            return data;
+        }
         if(cn.nukkit.registry.Registries.ITEM.getCustomItemDefinition().containsKey(data.getDefinition().getIdentifier())) {
             return data;
         }

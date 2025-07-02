@@ -22,7 +22,10 @@ public class InventoryContentHandler extends PacketHandler<InventoryContentPacke
                 continue;
             }
             ItemData downgraded = Registries.ITEM.downgrade(player.getVersion(), data);
-            if(downgraded.getDefinition().getIdentifier().equals(Registries.ITEM.getOutdated(downgraded).getDefinition().getIdentifier())) continue;
+            if(data.getDefinition().getIdentifier().equals(Registries.ITEM.getOutdated(downgraded).getDefinition().getIdentifier())) {
+                content.add(downgraded);
+                continue;
+            }
             if(downgraded.getBlockDefinition() != null) {
                 if(downgraded.getBlockDefinition() instanceof SimpleBlockDefinition definition) {
                     if(definition.getState() != null) {
