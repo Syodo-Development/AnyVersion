@@ -26,7 +26,8 @@ public class ItemDataTable_1_21_90 extends ItemTable {
                 of(HARNESS_PURPLE),
                 of(HARNESS_RED),
                 of(HARNESS_WHITE),
-                of(HARNESS_YELLOW)
+                of(HARNESS_YELLOW),
+                of(MUSIC_DISC_LAVA_CHICKEN)
                 );
     }
 

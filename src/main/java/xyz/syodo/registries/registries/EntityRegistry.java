@@ -5,10 +5,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import org.cloudburstmc.protocol.bedrock.packet.AddEntityPacket;
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.table.entity.EntityTable;
-import xyz.syodo.utils.table.entity.EntityTable_1_20_0;
-import xyz.syodo.utils.table.entity.EntityTable_1_21_0;
-import xyz.syodo.utils.table.entity.EntityTable_1_21_90;
+import xyz.syodo.utils.table.entity.*;
 
 import java.util.Comparator;
 
@@ -20,6 +17,8 @@ public class EntityRegistry extends Registry {
     public void init() {
         TABLES.add(new EntityTable_1_21_90());
         TABLES.add(new EntityTable_1_21_0());
+        TABLES.add(new EntityTable_1_21_50());
+        TABLES.add(new EntityTable_1_21_80());
         TABLES.add(new EntityTable_1_20_0());
     }
 

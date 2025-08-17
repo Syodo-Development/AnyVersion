@@ -61,6 +61,7 @@ import org.cloudburstmc.protocol.bedrock.codec.v776.Bedrock_v776;
 import org.cloudburstmc.protocol.bedrock.codec.v786.Bedrock_v786;
 import org.cloudburstmc.protocol.bedrock.codec.v800.Bedrock_v800;
 import org.cloudburstmc.protocol.bedrock.codec.v818.Bedrock_v818;
+import org.cloudburstmc.protocol.bedrock.codec.v827.Bedrock_v827;
 import org.cloudburstmc.protocol.bedrock.data.EncodingSettings;
 import org.cloudburstmc.protocol.bedrock.data.definitions.BlockDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
@@ -126,7 +127,9 @@ public enum ProtocolVersion {
     MINECRAFT_PE_1_21_60(776, Bedrock_v776.CODEC),
     MINECRAFT_PE_1_21_70(786, Bedrock_v786.CODEC),
     MINECRAFT_PE_1_21_80(800, Bedrock_v800.CODEC),
-    MINECRAFT_PE_1_21_90(818, Bedrock_v818.CODEC);
+    MINECRAFT_PE_1_21_90(818, Bedrock_v818.CODEC),
+    MINECRAFT_PE_1_21_100(827, Bedrock_v827.CODEC);
+
     @Getter
     private static final ProtocolVersion[] versions = values();
     @Getter
@@ -169,6 +172,10 @@ public enum ProtocolVersion {
 
     public static ProtocolVersion getMin() {
         return versions[0];
+    }
+
+    public static ProtocolVersion getMax() {
+        return versions[versions.length-1];
     }
 
     public static ProtocolVersion get(int protocol) {
