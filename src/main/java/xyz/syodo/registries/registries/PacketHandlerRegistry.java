@@ -29,6 +29,16 @@ public class PacketHandlerRegistry extends Registry {
         HANDLERS.add(new ModalFormRequestHandler());
         HANDLERS.add(new ModalFormResponseHandler());
         HANDLERS.add(new ServerSettingsResponseHandler());
+        HANDLERS.add(new InventoryContentHandler());
+        HANDLERS.add(new InventorySlotHandler());
+        HANDLERS.add(new MobArmorEquipmentHandler());
+        HANDLERS.add(new MobEquipmentHandler());
+        HANDLERS.add(new AddItemEntityHandler());
+        HANDLERS.add(new AddPlayerHandler());
+        HANDLERS.add(new CraftingDataHandler());
+        HANDLERS.add(new BiomeDefinitionListHandler());
+        HANDLERS.add(new AddEntityHandler());
+        HANDLERS.add(new LoginHandler());
     }
 
     public boolean handlePacket(ProtocolPlayer player, BedrockPacket packet) {

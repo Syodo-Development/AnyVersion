@@ -1,7 +1,14 @@
 package xyz.syodo.utils;
 
+import cn.nukkit.block.BlockID;
+import cn.nukkit.block.BlockState;
+import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.network.protocol.ProtocolInfo;
+import cn.nukkit.registry.ItemRegistry;
+import cn.nukkit.registry.ItemRuntimeIdRegistry;
+import cn.nukkit.registry.Registries;
 import lombok.Getter;
+import org.cloudburstmc.nbt.NbtMap;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodec;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v313.Bedrock_v313;
@@ -52,9 +59,22 @@ import org.cloudburstmc.protocol.bedrock.codec.v748.Bedrock_v748;
 import org.cloudburstmc.protocol.bedrock.codec.v766.Bedrock_v766;
 import org.cloudburstmc.protocol.bedrock.codec.v776.Bedrock_v776;
 import org.cloudburstmc.protocol.bedrock.codec.v786.Bedrock_v786;
+import org.cloudburstmc.protocol.bedrock.codec.v800.Bedrock_v800;
+import org.cloudburstmc.protocol.bedrock.codec.v818.Bedrock_v818;
+import org.cloudburstmc.protocol.bedrock.codec.v827.Bedrock_v827;
 import org.cloudburstmc.protocol.bedrock.data.EncodingSettings;
+import org.cloudburstmc.protocol.bedrock.data.definitions.BlockDefinition;
+import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
+import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleBlockDefinition;
+import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
+import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
+import org.cloudburstmc.protocol.bedrock.data.inventory.ItemVersion;
+import org.cloudburstmc.protocol.common.DefinitionRegistry;
+import org.cloudburstmc.protocol.common.SimpleDefinitionRegistry;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public enum ProtocolVersion {
   /*MINECRAFT_PE_1_8(313, Bedrock_v313.CODEC),
@@ -105,7 +125,10 @@ public enum ProtocolVersion {
     MINECRAFT_PE_1_21_50_29(765, Bedrock_v766.CODEC),
     MINECRAFT_PE_1_21_50(766, Bedrock_v766.CODEC),
     MINECRAFT_PE_1_21_60(776, Bedrock_v776.CODEC),
-    MINECRAFT_PE_1_21_70(786, Bedrock_v786.CODEC);
+    MINECRAFT_PE_1_21_70(786, Bedrock_v786.CODEC),
+    MINECRAFT_PE_1_21_80(800, Bedrock_v800.CODEC),
+    MINECRAFT_PE_1_21_90(818, Bedrock_v818.CODEC),
+    MINECRAFT_PE_1_21_100(827, Bedrock_v827.CODEC);
 
     @Getter
     private static final ProtocolVersion[] versions = values();
@@ -125,7 +148,7 @@ public enum ProtocolVersion {
         this.helper().setEncodingSettings(EncodingSettings.CLIENT);
         this.helper().setItemDefinitions(CloudburstRegistry.get().getItemDefinitionRegistry());
         this.helper().setBlockDefinitions(CloudburstRegistry.get().getBlockDefinitionRegistry());
-        //Currently always throws UnsupportedOperationException
+
         try {
             this.helper().setCameraPresetDefinitions(CloudburstRegistry.get().getNamedDefinitionRegistry());
         } catch (Exception e) {}
@@ -151,8 +174,11 @@ public enum ProtocolVersion {
         return versions[0];
     }
 
+    public static ProtocolVersion getMax() {
+        return versions[versions.length-1];
+    }
+
     public static ProtocolVersion get(int protocol) {
         return Arrays.stream(versions).filter(p -> p.protocol() == protocol).findAny().get();
     }
-
 }

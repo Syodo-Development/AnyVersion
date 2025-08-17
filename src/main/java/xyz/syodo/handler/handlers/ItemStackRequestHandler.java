@@ -64,6 +64,21 @@ public class ItemStackRequestHandler extends PacketHandler<ItemStackRequestPacke
                         field.set(craftRecipeAction, 1);
                         field.setAccessible(false);
                     }
+                } else if(action instanceof SwapAction swapAction) {
+                    ItemStackRequestSlotData source = swapAction.getSource();
+                    ItemStackRequestSlotData destination = swapAction.getDestination();
+                    if(source.getContainerName() == null) {
+                        Field field = source.getClass().getDeclaredField("containerName");
+                        field.setAccessible(true);
+                        field.set(source, new FullContainerName(source.getContainer(), 0));
+                        field.setAccessible(false);
+                    }
+                    if(destination.getContainerName() == null) {
+                        Field field = destination.getClass().getDeclaredField("containerName");
+                        field.setAccessible(true);
+                        field.set(destination, new FullContainerName(destination.getContainer(), 0));
+                        field.setAccessible(false);
+                    }
                 }
             }
         }

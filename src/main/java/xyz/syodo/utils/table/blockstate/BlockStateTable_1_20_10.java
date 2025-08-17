@@ -1,9 +1,9 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_20_10.ConcreteTransformer;
-import xyz.syodo.utils.transformer._1_20_10.ObserverTransformer;
-import xyz.syodo.utils.transformer._1_20_10.ShulkerBoxTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_10.ConcreteTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_10.ObserverTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_10.ShulkerBoxTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;

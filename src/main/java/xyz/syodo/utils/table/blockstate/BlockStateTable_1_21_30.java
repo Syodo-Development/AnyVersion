@@ -1,7 +1,7 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_21_30.*;
+import xyz.syodo.utils.transformer.blocks._1_21_30.*;
 
 import static cn.nukkit.block.BlockID.*;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;

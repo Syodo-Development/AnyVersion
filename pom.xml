@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xyz.syodo</groupId>
     <artifactId>AnyVersion</artifactId>
-    <version>2.0.1</version>
+    <version>2.1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,11 +38,6 @@
             <id>opencollab-repository-maven-snapshots</id>
             <name>Opencollab Repository snapshots</name>
             <url>https://repo.opencollab.dev/maven-snapshots</url>
-        </repository>
-        <repository>
-            <id>storehouse</id>
-            <name>storehouse snapshots</name>
-            <url>https://storehouse.okaeri.eu/repository/maven-public</url>
         </repository>
     </repositories>
 
@@ -100,7 +95,7 @@
         <dependency>
             <groupId>org.cloudburstmc.protocol</groupId>
             <artifactId>bedrock-codec</artifactId>
-            <version>3.0.0.Beta6-20250415.154650-7</version>
+            <version>3.0.0.Beta7-20250730.214113-17</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

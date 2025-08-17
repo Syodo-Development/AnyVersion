@@ -1,22 +1,28 @@
 package xyz.syodo.registries;
 
-import xyz.syodo.registries.registries.BlockPaletteRegistry;
-import xyz.syodo.registries.registries.BlockStateRegistry;
-import xyz.syodo.registries.registries.ItemRegistry;
-import xyz.syodo.registries.registries.PacketHandlerRegistry;
+import lombok.Getter;
+import xyz.syodo.registries.registries.*;
 
 public class Registries {
+
+    @Getter
+    private static boolean initiated = false;
 
     public static final PacketHandlerRegistry PACKETHANDLER = new PacketHandlerRegistry();
     public static final ItemRegistry ITEM = new ItemRegistry();
     public static final BlockStateRegistry BLOCKSTATE = new BlockStateRegistry();
     public static final BlockPaletteRegistry BLOCKPALETTE = new BlockPaletteRegistry();
+    public static final EntityRegistry ENTITY = new EntityRegistry();
+
 
     public static void init() {
-        PACKETHANDLER.init();
-        ITEM.init();
-        BLOCKSTATE.init();
-        BLOCKPALETTE.init();
+        if(!initiated) {
+            PACKETHANDLER.init();
+            ITEM.init();
+            BLOCKSTATE.init();
+            BLOCKPALETTE.init();
+            ENTITY.init();
+        }
     }
 
 }

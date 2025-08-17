@@ -1,7 +1,8 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer._1_21_40.SkullTransformer;
+import xyz.syodo.utils.transformer.blocks._1_21_40.SkullTransformer;
+import xyz.syodo.utils.transformer.blocks._1_21_40.StemTransformer;
 
 import static cn.nukkit.block.BlockID.*;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;
@@ -16,7 +17,10 @@ public class BlockStateTable_1_21_40 extends BlockStateTable {
                 of(ZOMBIE_HEAD, new SkullTransformer()),
                 of(CREEPER_HEAD, new SkullTransformer()),
                 of(DRAGON_HEAD, new SkullTransformer()),
-                of(PIGLIN_HEAD, new SkullTransformer())
+                of(PIGLIN_HEAD, new SkullTransformer()),
+                of(RED_MUSHROOM_BLOCK, new StemTransformer()),
+                of(BROWN_MUSHROOM_BLOCK, new StemTransformer()),
+                of(MUSHROOM_STEM, new StemTransformer())
         );
     }
 }

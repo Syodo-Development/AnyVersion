@@ -1,26 +1,26 @@
 package xyz.syodo.registries.registries;
 
-import cn.nukkit.Server;
-import cn.nukkit.block.BlockID;
 import cn.nukkit.block.BlockState;
+import cn.nukkit.block.BlockStateImpl;
+import cn.nukkit.block.property.type.BlockPropertyType;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import it.unimi.dsi.fastutil.objects.ObjectArraySet;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import xyz.syodo.registries.Registries;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.BlockStateDefinition;
-import xyz.syodo.utils.definition.ItemDefinition;
-import xyz.syodo.utils.table.ItemTable;
 import xyz.syodo.utils.table.blockstate.*;
 
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class BlockStateRegistry extends Registry {
 
     private final ObjectArrayList<BlockStateTable> TABLES = new ObjectArrayList<>();
 
+    private final Object2ObjectArrayMap<Integer, Object2ObjectArrayMap<Long, BlockState>> blockStateCache = new Object2ObjectArrayMap<>();
+
     @Override
     public void init() {
+        TABLES.add(new BlockStateTable_1_21_90());
         TABLES.add(new BlockStateTable_1_21_70());
         TABLES.add(new BlockStateTable_1_21_60());
         TABLES.add(new BlockStateTable_1_21_50());
@@ -37,44 +37,55 @@ public class BlockStateRegistry extends Registry {
         TABLES.add(new BlockStateTable_1_20_10());
         TABLES.add(new BlockStateTable_1_20_0());
         TABLES.add(new BlockStateTable_1_19_80());
-
-        for(BlockStateTable table : TABLES) {
-            ItemTable itemTable;
-            var opt = Registries.ITEM.getTables().stream().filter(itemTable1 -> itemTable1.getVersion().protocol() == table.getVersion().protocol()).findFirst();
-            if(opt.isPresent()) {
-                itemTable = opt.get();
-            } else {
-                itemTable = new ItemTable(table.getVersion());
-                Registries.ITEM.getTables().add(itemTable);
-            }
-            for(BlockStateDefinition definition : table.getContent()) {
-                itemTable.addAll(ItemDefinition.of(definition.getIdentifier()));
-            }
-        }
     }
 
     public BlockState downgrade(ProtocolVersion version, BlockState state) {
+        long unsignedHash = state.blockStateHash();
+        if(blockStateCache.containsKey(version.protocol())) {
+            Object2ObjectArrayMap<Long, BlockState> versionedCache = blockStateCache.get(version.protocol());
+            if(versionedCache.containsKey(unsignedHash)) {
+                return versionedCache.get(unsignedHash);
+            }
+        } else blockStateCache.put(version.protocol(), new Object2ObjectArrayMap<>());
+        BlockState blockState = downgrade(version, clone(state), true, Integer.MAX_VALUE);
+        if(blockState.blockStateHash() != unsignedHash) {
+            Object2ObjectArrayMap<Long, BlockState> versionedCache = blockStateCache.get(version.protocol());
+            versionedCache.put(unsignedHash, blockState);
+        }
+        return blockState;
+    }
+
+    public BlockState downgrade(ProtocolVersion version, BlockState state, boolean ignoreEqual, int lastProtocol) {
+        final String identifier = state.getIdentifier();
         BlockStateDefinition definition = BlockStateDefinition.of(state);
         ObjectArrayList<BlockStateTable> tables = new ObjectArrayList<>();
         for(BlockStateTable table : TABLES) {
-            var optresult = table.getContent().stream().filter(definition::equals).findFirst();
-            if(optresult.isPresent()) {
-                tables.add(table);
+            if(table.getVersion().protocol() > version.protocol()) {
+                var optresult = table.getContent().stream().filter(definition::equals).findFirst();
+                if (optresult.isPresent()) {
+                    tables.add(table);
+                }
             }
         }
 
-        final String identifier = state.getIdentifier();
         tables.sort(Comparator.comparingInt(o -> o.getVersion().protocol()));
         for(BlockStateTable table : tables.reversed()) {
             int prot = table.getVersion().protocol();
-            if(prot > version.protocol()) {
+            if((prot > version.protocol() || (!ignoreEqual && prot == version.protocol())) && prot < lastProtocol) {
                 state = table.getContent().stream().filter(definition::equals).findFirst().orElse(definition).getDowngrade().transform(state);
+                lastProtocol = prot;
             }
         }
         if(!identifier.equals(state.getIdentifier())) {
-            state = downgrade(version, state);
+            state.getBlockStateTag().getCompound("states").putString("identifier", identifier);
+            state = downgrade(version, state, true, lastProtocol);
         }
+        state.getBlockStateTag().getCompound("states").putString("identifier", identifier);
         return state;
+    }
+
+    public static BlockState clone(BlockState blockState) {
+        return new BlockStateImpl(blockState.getIdentifier(), blockState.blockStateHash(), blockState.getBlockPropertyValues().toArray(BlockPropertyType.BlockPropertyValue[]::new));
     }
 
 }

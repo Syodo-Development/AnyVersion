@@ -1,13 +1,10 @@
 package xyz.syodo.utils.table.blockstate;
 
 import xyz.syodo.utils.ProtocolVersion;
-import xyz.syodo.utils.transformer.IdentifierTransformer;
-import xyz.syodo.utils.transformer._1_20_60.HardStainedGlassPaneTransformer;
-import xyz.syodo.utils.transformer._1_20_60.HardStainedGlassTransformer;
-import xyz.syodo.utils.transformer._1_20_70.*;
+import xyz.syodo.utils.transformer.blocks._1_20_60.HardStainedGlassPaneTransformer;
+import xyz.syodo.utils.transformer.blocks._1_20_60.HardStainedGlassTransformer;
 
 import static cn.nukkit.block.BlockID.*;
-import static cn.nukkit.tags.BlockTags.GRASS;
 import static xyz.syodo.utils.definition.BlockStateDefinition.of;
 
 public class BlockStateTable_1_20_60 extends BlockStateTable {
