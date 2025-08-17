@@ -3,16 +3,20 @@ package xyz.syodo.registries.registries;
 import cn.nukkit.block.BlockState;
 import cn.nukkit.block.BlockStateImpl;
 import cn.nukkit.block.property.type.BlockPropertyType;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import xyz.syodo.utils.ProtocolVersion;
 import xyz.syodo.utils.definition.BlockStateDefinition;
 import xyz.syodo.utils.table.blockstate.*;
 
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class BlockStateRegistry extends Registry {
 
     private final ObjectArrayList<BlockStateTable> TABLES = new ObjectArrayList<>();
+
+    private final Object2ObjectArrayMap<Integer, Object2ObjectArrayMap<Long, BlockState>> blockStateCache = new Object2ObjectArrayMap<>();
 
     @Override
     public void init() {
@@ -36,7 +40,19 @@ public class BlockStateRegistry extends Registry {
     }
 
     public BlockState downgrade(ProtocolVersion version, BlockState state) {
-        return downgrade(version, clone(state), true, Integer.MAX_VALUE);
+        long unsignedHash = state.blockStateHash();
+        if(blockStateCache.containsKey(version.protocol())) {
+            Object2ObjectArrayMap<Long, BlockState> versionedCache = blockStateCache.get(version.protocol());
+            if(versionedCache.containsKey(unsignedHash)) {
+                return versionedCache.get(unsignedHash);
+            }
+        } else blockStateCache.put(version.protocol(), new Object2ObjectArrayMap<>());
+        BlockState blockState = downgrade(version, clone(state), true, Integer.MAX_VALUE);
+        if(blockState.blockStateHash() != unsignedHash) {
+            Object2ObjectArrayMap<Long, BlockState> versionedCache = blockStateCache.get(version.protocol());
+            versionedCache.put(unsignedHash, blockState);
+        }
+        return blockState;
     }
 
     public BlockState downgrade(ProtocolVersion version, BlockState state, boolean ignoreEqual, int lastProtocol) {
@@ -44,9 +60,11 @@ public class BlockStateRegistry extends Registry {
         BlockStateDefinition definition = BlockStateDefinition.of(state);
         ObjectArrayList<BlockStateTable> tables = new ObjectArrayList<>();
         for(BlockStateTable table : TABLES) {
-            var optresult = table.getContent().stream().filter(definition::equals).findFirst();
-            if(optresult.isPresent()) {
-                tables.add(table);
+            if(table.getVersion().protocol() > version.protocol()) {
+                var optresult = table.getContent().stream().filter(definition::equals).findFirst();
+                if (optresult.isPresent()) {
+                    tables.add(table);
+                }
             }
         }
 
@@ -60,15 +78,14 @@ public class BlockStateRegistry extends Registry {
         }
         if(!identifier.equals(state.getIdentifier())) {
             state.getBlockStateTag().getCompound("states").putString("identifier", identifier);
-            state = downgrade(version, state, false, lastProtocol);
+            state = downgrade(version, state, true, lastProtocol);
         }
         state.getBlockStateTag().getCompound("states").putString("identifier", identifier);
         return state;
     }
 
     public static BlockState clone(BlockState blockState) {
-        BlockStateImpl impl = new BlockStateImpl(blockState.getIdentifier(), blockState.blockStateHash(), blockState.getBlockPropertyValues().toArray(BlockPropertyType.BlockPropertyValue[]::new));
-        return impl;
+        return new BlockStateImpl(blockState.getIdentifier(), blockState.blockStateHash(), blockState.getBlockPropertyValues().toArray(BlockPropertyType.BlockPropertyValue[]::new));
     }
 
 }

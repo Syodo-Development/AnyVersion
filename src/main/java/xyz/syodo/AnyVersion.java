@@ -1,5 +1,6 @@
 package xyz.syodo;
 
+import cn.nukkit.network.protocol.ProtocolInfo;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
 import lombok.Getter;
@@ -13,19 +14,20 @@ public class AnyVersion extends PluginBase {
     @Getter
     private static AnyVersion plugin;
 
+    private boolean failedToLoad = false;
+
     @Override
     public void onLoad() {
-        try {
-            ProtocolVersion.getCurrent();
-        } catch (Exception e) {
-            new UnsupportedOperationException("The current protocol is not supported by AnyVersion! Please update the plugin.");
-        }
-
         AnyVersion.plugin = this;
     }
 
     @Override
     public void onEnable() {
+        if(ProtocolInfo.CURRENT_PROTOCOL > ProtocolVersion.getMax().protocol()) {
+            getPlugin().getLogger().critical("The current protocol is not supported by AnyVersion! Please update the plugin.");
+            setEnabled(false);
+            return;
+        }
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ProtocolManager(), this);
         pluginManager.registerEvents(new ServerStartedListener(), this);

@@ -1,8 +1,6 @@
 package xyz.syodo.handler.handlers;
 
-import cn.nukkit.Server;
 import cn.nukkit.nbt.tag.*;
-import cn.nukkit.registry.ItemRegistry;
 import cn.nukkit.registry.ItemRuntimeIdRegistry;
 import cn.nukkit.registry.Registries;
 import org.cloudburstmc.nbt.*;

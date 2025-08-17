@@ -13,6 +13,7 @@ public class ItemDataTable_1_20_80 extends ItemTable {
     public ItemDataTable_1_20_80() {
         super(ProtocolVersion.MINECRAFT_PE_1_20_80,
                 of(ARMADILLO_SCUTE),
+                of(ARMADILLO_SPAWN_EGG),
                 of(WOLF_ARMOR),
                 of(FLOW_ARMOR_TRIM_SMITHING_TEMPLATE),
                 of(FLOW_POTTERY_SHERD),

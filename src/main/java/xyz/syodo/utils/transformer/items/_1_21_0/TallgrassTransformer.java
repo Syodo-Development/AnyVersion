@@ -21,7 +21,7 @@ public class TallgrassTransformer extends ItemDataTransformer {
         ItemDefinition originalItemDefinition = original.getDefinition();
         NbtMap map = NbtMap.fromMap((Map<String, Object>) definition.getState().get("states"));
         int damage = map.isEmpty() || map.getString("tall_grass_type").isEmpty() ? 0 : TallGrassType.valueOf(map.getString("tall_grass_type").toUpperCase()).ordinal();
-        SimpleItemDefinition itemDefinition = new SimpleItemDefinition(originalItemDefinition.getIdentifier(), Registries.ITEM_RUNTIMEID.get(BlockID.TUBE_CORAL_BLOCK), originalItemDefinition.getVersion(), originalItemDefinition.isComponentBased(), originalItemDefinition.getComponentData());
+        SimpleItemDefinition itemDefinition = new SimpleItemDefinition(originalItemDefinition.getIdentifier(), Registries.ITEM_RUNTIMEID.get(BlockID.TALL_GRASS), originalItemDefinition.getVersion(), originalItemDefinition.isComponentBased(), originalItemDefinition.getComponentData());
         return ItemData.builder()
                 .definition(itemDefinition)
                 .damage(damage)

@@ -17,6 +17,7 @@ public class BlockStateTable_1_20_50 extends BlockStateTable {
                 of(JUNGLE_PLANKS, new PlanksTransformer()),
                 of(ACACIA_PLANKS, new PlanksTransformer()),
                 of(DARK_OAK_PLANKS, new PlanksTransformer()),
+                of(STONE, new StoneTransformer()),
                 of(DIORITE, new StoneTransformer()),
                 of(GRANITE, new StoneTransformer()),
                 of(ANDESITE, new StoneTransformer()),

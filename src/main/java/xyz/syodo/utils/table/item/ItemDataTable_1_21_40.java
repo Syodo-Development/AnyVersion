@@ -15,8 +15,6 @@ public class ItemDataTable_1_21_40 extends ItemTable {
                 of(BlockID.SKULL, new SkullTransformer()),
                 of(BlockID.RED_MUSHROOM_BLOCK, new StemTransformer()),
                 of(BlockID.BROWN_MUSHROOM_BLOCK, new StemTransformer()),
-                of(BORDURE_INDENTED_BANNER_PATTERN),
-                of(FIELD_MASONED_BANNER_PATTERN),
                 of(BUNDLE),
                 of(BLACK_BUNDLE),
                 of(BLUE_BUNDLE),

@@ -35,7 +35,13 @@ public class ItemDataTable_1_21_0 extends ItemTable {
                 of(SCRAPE_POTTERY_SHERD),
                 of(BREEZE_SPAWN_EGG),
                 of(BOGGED_SPAWN_EGG),
-                of(WIND_CHARGE)
+                of(WIND_CHARGE),
+                of(CHERRY_SIGN),
+                of(CHERRY_BOAT),
+                of(CHERRY_CHEST_BOAT),
+                of(BAMBOO_SIGN),
+                of(BAMBOO_RAFT),
+                of(BAMBOO_CHEST_RAFT)
         );
     }
 

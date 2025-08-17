@@ -13,7 +13,6 @@ public class DoubleStoneBlockSlabTransformer extends BlockStateTransformer {
     @Override
     public BlockState transform(BlockState original) {
         BlockProperties PROPERTIES = new BlockProperties(DOUBLE_STONE_BLOCK_SLAB, CommonBlockProperties.MINECRAFT_VERTICAL_HALF, CommonBlockProperties.STONE_SLAB_TYPE);
-
         StoneSlabType type = switch(original.getIdentifier()) {
             case SMOOTH_STONE_DOUBLE_SLAB -> StoneSlabType.SMOOTH_STONE;
             case SANDSTONE_DOUBLE_SLAB -> StoneSlabType.SANDSTONE;

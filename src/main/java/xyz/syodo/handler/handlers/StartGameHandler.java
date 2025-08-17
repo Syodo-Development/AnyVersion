@@ -16,7 +16,10 @@ import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.utils.ProtocolVersion;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+
+import static cn.nukkit.block.BlockID.STONE_BLOCK_SLAB2;
 
 public class StartGameHandler extends PacketHandler<StartGamePacket> {
 
@@ -30,6 +33,7 @@ public class StartGameHandler extends PacketHandler<StartGamePacket> {
         }
 
         if(player.protocol() < ProtocolVersion.MINECRAFT_PE_1_21_60.protocol()) {
+            HashSet<String> modifiedIdentifiers = new HashSet<>();
             for(ItemRuntimeIdRegistry.ItemData data : ItemRuntimeIdRegistry.getITEMDATA()) {
                 CompoundTag tag = new CompoundTag();
 
@@ -43,7 +47,17 @@ public class StartGameHandler extends PacketHandler<StartGamePacket> {
                 SimpleItemDefinition definition = new SimpleItemDefinition(data.identifier(), data.runtimeId(), ItemVersion.from(data.version()), data.componentBased(), NbtMap.fromMap(tag.parseValue()));
                 ItemData cbItemdata = ItemData.builder().definition(definition).build();
                 SimpleItemDefinition downgraded = (SimpleItemDefinition) xyz.syodo.registries.Registries.ITEM.downgrade(player.getVersion(), cbItemdata).getDefinition();
-                if(downgraded.getIdentifier().equals(xyz.syodo.registries.Registries.ITEM.getOutdated(cbItemdata).getDefinition().getIdentifier())) continue;
+                String downgradedIdentifier = downgraded.getIdentifier();
+                if(downgradedIdentifier.equals(xyz.syodo.registries.Registries.ITEM.getOutdated(cbItemdata).getDefinition().getIdentifier())) continue;
+                if(downgradedIdentifier.equals(cbItemdata.getDefinition().getIdentifier())) {
+                    if(modifiedIdentifiers.contains(downgradedIdentifier)) {
+                        if(cbItemdata.getDefinition().getRuntimeId() == Registries.ITEM_RUNTIMEID.getInt(downgradedIdentifier)) {
+                            continue;
+                        } else {
+                            throw new RuntimeException("Expected a changing runtimeId for " + downgradedIdentifier);
+                        }
+                    }
+                } else modifiedIdentifiers.add(downgradedIdentifier);
                 definitions.add(downgraded);
             }
         }

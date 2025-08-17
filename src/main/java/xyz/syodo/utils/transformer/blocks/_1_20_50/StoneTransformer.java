@@ -11,7 +11,6 @@ public class StoneTransformer extends BlockStateTransformer {
 
     EnumPropertyType<StoneType> STONE_TYPE = EnumPropertyType.of("stone_type", StoneType.class, StoneType.values()[0]);
 
-
     @Override
     public BlockState transform(BlockState original) {
 
@@ -22,7 +21,8 @@ public class StoneTransformer extends BlockStateTransformer {
             case ANDESITE -> StoneType.ANDESITE;
             case POLISHED_GRANITE -> StoneType.GRANITE_SMOOTH;
             case POLISHED_DIORITE -> StoneType.DIORITE_SMOOTH;
-            default -> StoneType.ANDESITE_SMOOTH;
+            case POLISHED_ANDESITE -> StoneType.ANDESITE_SMOOTH;
+            default -> StoneType.STONE;
         };
         return PROPERTIES.getBlockState(STONE_TYPE.createValue(type));
     }

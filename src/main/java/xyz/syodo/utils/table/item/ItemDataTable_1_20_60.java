@@ -15,9 +15,7 @@ public class ItemDataTable_1_20_60 extends ItemTable {
         super(ProtocolVersion.MINECRAFT_PE_1_20_60,
                 of(TURTLE_SCUTE, new ScuteTransformer()),
                 of(HARD_STAINED_GLASS, new HardStainedGlassTransformer()),
-                of(HARD_STAINED_GLASS_PANE, new HardStainedGlassTransformer()),
-                of(BREEZE_SPAWN_EGG, new SpawnEggTransformer(140)),
-                of(ARMADILLO_SPAWN_EGG, new SpawnEggTransformer(142))
+                of(HARD_STAINED_GLASS_PANE, new HardStainedGlassTransformer())
         );
     }
 
