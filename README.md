@@ -11,4 +11,4 @@ This is because on versions below, custom blocks are not longer translated. For 
 Therefore dont expect help from us when players with clients lower than 1.20.3 have problems on your server. (Thats old enough anyways)
 
 If using WaterdogPE, you probably want to use [SyodogPE](https://github.com/Syodo-Development/SyodogPE). 
-VanillaPNX works with base WaterdogPE, but your WDPE console might get spammed with some warnings you can just ignore.
+AnyVersion works with base WaterdogPE, but your WDPE console might get spammed with some warnings you can just ignore.
