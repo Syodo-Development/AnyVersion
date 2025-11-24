@@ -40,6 +40,7 @@ public class PacketHandlerRegistry extends Registry {
         HANDLERS.add(new AddEntityHandler());
         HANDLERS.add(new LoginHandler());
         HANDLERS.add(new SetEntityDataHandler());
+        HANDLERS.add(new UpdateSubChunkBlocksHandler());
     }
 
     public boolean handlePacket(ProtocolPlayer player, BedrockPacket packet) {
