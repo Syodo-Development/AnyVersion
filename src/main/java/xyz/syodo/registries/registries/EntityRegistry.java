@@ -1,6 +1,5 @@
 package xyz.syodo.registries.registries;
 
-import cn.nukkit.entity.EntityID;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import org.cloudburstmc.protocol.bedrock.packet.AddEntityPacket;
@@ -15,6 +14,7 @@ public class EntityRegistry extends Registry {
 
     @Override
     public void init() {
+        TABLES.add(new EntityTable_1_21_110());
         TABLES.add(new EntityTable_1_21_90());
         TABLES.add(new EntityTable_1_21_0());
         TABLES.add(new EntityTable_1_21_50());

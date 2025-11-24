@@ -14,15 +14,31 @@ import cn.nukkit.network.connection.BedrockPeer;
 import cn.nukkit.network.connection.BedrockSession;
 import cn.nukkit.network.connection.netty.codec.compression.CompressionCodec;
 import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec;
+import cn.nukkit.network.connection.util.ChainValidationResult;
 import cn.nukkit.network.process.SessionState;
 import cn.nukkit.network.process.handler.InGamePacketHandler;
+import cn.nukkit.network.process.login.CertificateChainPayload;
+import cn.nukkit.network.process.login.LoginData;
+import cn.nukkit.network.process.login.TokenPayload;
 import cn.nukkit.network.protocol.*;
 import cn.nukkit.network.protocol.types.PlayerInfo;
+import cn.nukkit.utils.BinaryStream;
+import cn.nukkit.utils.ClientChainData;
+import cn.nukkit.utils.EncryptionUtils;
+import cn.nukkit.utils.Utils;
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import io.netty.channel.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import org.jose4j.jwa.AlgorithmConstraints;
+import org.jose4j.jws.AlgorithmIdentifiers;
+import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.consumer.InvalidJwtException;
+import org.jose4j.jwt.consumer.JwtConsumer;
+import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import xyz.syodo.AnyVersion;
 import xyz.syodo.processors.PEmoteProcessor;
 import xyz.syodo.utils.CloudburstRegistry;
@@ -33,12 +49,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Slf4j
 public class ProtocolManager implements Listener {
 
-    private static final Object2ObjectOpenHashMap<UUID, ProtocolPlayer> players = new Object2ObjectOpenHashMap<>();
+    private static final Object2ObjectOpenHashMap<String, ProtocolPlayer> players = new Object2ObjectOpenHashMap<>();
 
     @EventHandler
     public void onRequestNetworkSettingsPacket(DataPacketReceiveEvent event) {
@@ -96,53 +113,61 @@ public class ProtocolManager implements Listener {
 
 
     @EventHandler
-    public void onLoginPacket(DataPacketReceiveEvent event) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException {
-        if(event.getPacket() instanceof LoginPacket packet) {
-            if(packet.protocol == ProtocolInfo.CURRENT_PROTOCOL) return;
-            Field fSessionMap = Network.class.getDeclaredField("sessionMap");
-            fSessionMap.setAccessible(true);
-            Map<InetSocketAddress, BedrockSession> sessionMap = (Map<InetSocketAddress, BedrockSession>) fSessionMap.get(Server.getInstance().getNetwork());
-            fSessionMap.setAccessible(false);
+    public void onLoginPacket(DataPacketReceiveEvent event) throws Exception {
+        try {
+            if(event.getPacket() instanceof LoginPacket packet) {
+                if(packet.protocol == ProtocolInfo.CURRENT_PROTOCOL) return;
+                Field fSessionMap = Network.class.getDeclaredField("sessionMap");
+                fSessionMap.setAccessible(true);
+                Map<InetSocketAddress, BedrockSession> sessionMap = (Map<InetSocketAddress, BedrockSession>) fSessionMap.get(Server.getInstance().getNetwork());
+                fSessionMap.setAccessible(false);
+                for(BedrockSession bedrockSession : sessionMap.values()) {
+                    Field fMachine = BedrockSession.class.getDeclaredField("machine");
+                    fMachine.setAccessible(true);
+                    StateMachine<SessionState, SessionState> machine = (StateMachine<SessionState, SessionState>) fMachine.get(bedrockSession);
+                    fMachine.setAccessible(false);
+                    if(machine.getState() == SessionState.LOGIN) {
+                        ProtocolPlayer player = new ProtocolPlayer(bedrockSession, packet.protocol);
 
-            for(BedrockSession bedrockSession : sessionMap.values()) {
-                Field fMachine = BedrockSession.class.getDeclaredField("machine");
-                fMachine.setAccessible(true);
-                StateMachine<SessionState, SessionState> machine = (StateMachine<SessionState, SessionState>) fMachine.get(bedrockSession);
-                fMachine.setAccessible(false);
-                if(machine.getState() == SessionState.LOGIN) {
-                    ProtocolPlayer player = new ProtocolPlayer(bedrockSession, packet.protocol);
-                    players.put(packet.clientUUID, player);
-                    Field fConfig = StateMachine.class.getDeclaredField("config");
-                    fConfig.setAccessible(true);
-                    StateMachineConfig<SessionState, SessionState> config = (StateMachineConfig<SessionState, SessionState>) fConfig.get(machine);
-                    fConfig.setAccessible(false);
-                    Method onServerLoginSuccess = BedrockSession.class.getDeclaredMethod("onServerLoginSuccess");
-                    Field fInfo = BedrockSession.class.getDeclaredField("info");
-                    config.configure(SessionState.LOGIN).onExit(() -> {
-                        try {
-                            onServerLoginSuccess.setAccessible(true);
-                            onServerLoginSuccess.invoke(bedrockSession);
-                            onServerLoginSuccess.setAccessible(false);
-                            fInfo.setAccessible(true);
-                            PlayerInfo info = (PlayerInfo) fInfo.get(bedrockSession);
-                            fInfo.setAccessible(false);
-                            if(info.getUniqueId().equals(packet.clientUUID)) {
-                                PBedrockPacketCodec codec = new PBedrockPacketCodec(player);
-                                ChannelPipeline pipeline = bedrockSession.getPeer().getChannel().pipeline();
-                                pipeline.addBefore(BedrockPacketCodec.NAME, PBedrockPacketCodec.NAME, codec);
-                                pipeline.remove(BedrockPacketCodec.NAME);
-                                config.configure(SessionState.IN_GAME).onEntry(() -> {
-                                    InGamePacketHandler handler = new InGamePacketHandler(bedrockSession);
-                                    handler.getManager().registerProcessor(new PEmoteProcessor());
-                                    bedrockSession.setPacketHandler(handler);
-                                });
+                        ChainValidationResult result = EncryptionUtils.validatePayload(packet.authPayload);
+                        String uuid = result.identityClaims().extraData.xuid;
+                        players.put(uuid, player);
+                        Field fConfig = StateMachine.class.getDeclaredField("config");
+                        fConfig.setAccessible(true);
+                        StateMachineConfig<SessionState, SessionState> config = (StateMachineConfig<SessionState, SessionState>) fConfig.get(machine);
+                        fConfig.setAccessible(false);
+                        Method onServerLoginSuccess = BedrockSession.class.getDeclaredMethod("onServerLoginSuccess");
+                        Field fInfo = BedrockSession.class.getDeclaredField("info");
+                        String finalUuid = uuid;
+
+                        config.configure(SessionState.LOGIN).onExit(() -> {
+                            try {
+                                onServerLoginSuccess.setAccessible(true);
+                                onServerLoginSuccess.invoke(bedrockSession);
+                                onServerLoginSuccess.setAccessible(false);
+                                fInfo.setAccessible(true);
+                                PlayerInfo info = (PlayerInfo) fInfo.get(bedrockSession);
+                                fInfo.setAccessible(false);
+                                if(info.getUniqueId().equals(finalUuid)) {
+                                    PBedrockPacketCodec codec = new PBedrockPacketCodec(player);
+                                    ChannelPipeline pipeline = bedrockSession.getPeer().getChannel().pipeline();
+                                    pipeline.addBefore(BedrockPacketCodec.NAME, PBedrockPacketCodec.NAME, codec);
+                                    pipeline.remove(BedrockPacketCodec.NAME);
+                                    config.configure(SessionState.IN_GAME).onEntry(() -> {
+                                        InGamePacketHandler handler = new InGamePacketHandler(bedrockSession);
+                                        handler.getManager().registerProcessor(new PEmoteProcessor());
+                                        bedrockSession.setPacketHandler(handler);
+                                    });
+                                }
+                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                throw new RuntimeException(e);
                             }
-                        } catch (IllegalAccessException | InvocationTargetException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+                        });
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -186,6 +211,9 @@ public class ProtocolManager implements Listener {
 
     public static ProtocolPlayer get(Player player) {
         return get(player.getUniqueId());
+    }
+
+    private static class MapTypeToken extends TypeToken<Map<String, Object>> {
     }
 
 }

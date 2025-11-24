@@ -1,17 +1,10 @@
 package xyz.syodo.registries.registries;
 
-import cn.nukkit.Server;
 import cn.nukkit.block.*;
-import cn.nukkit.block.customblock.CustomBlock;
-import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemID;
-import cn.nukkit.item.customitem.CustomItem;
-import cn.nukkit.nbt.tag.CompoundTag;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import lombok.extern.slf4j.Slf4j;
 import org.cloudburstmc.nbt.NbtMap;
-import org.cloudburstmc.protocol.bedrock.data.definitions.BlockDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleBlockDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
@@ -41,6 +34,7 @@ public class ItemRegistry extends Registry {
 
     @Override
     public void init() {
+        TABLES.add(new ItemDataTable_1_21_110());
         TABLES.add(new ItemDataTable_1_21_90());
         TABLES.add(new ItemDataTable_1_21_70());
         TABLES.add(new ItemDataTable_1_21_50());
