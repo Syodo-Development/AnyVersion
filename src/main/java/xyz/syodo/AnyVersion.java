@@ -14,8 +14,6 @@ public class AnyVersion extends PluginBase {
     @Getter
     private static AnyVersion plugin;
 
-    private boolean failedToLoad = false;
-
     @Override
     public void onLoad() {
         AnyVersion.plugin = this;

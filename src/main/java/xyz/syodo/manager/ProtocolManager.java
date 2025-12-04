@@ -8,7 +8,6 @@ import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.event.server.DataPacketReceiveEvent;
 import cn.nukkit.event.server.DataPacketSendEvent;
-import cn.nukkit.event.server.ServerStartedEvent;
 import cn.nukkit.network.Network;
 import cn.nukkit.network.connection.BedrockPeer;
 import cn.nukkit.network.connection.BedrockSession;
@@ -17,31 +16,17 @@ import cn.nukkit.network.connection.netty.codec.packet.BedrockPacketCodec;
 import cn.nukkit.network.connection.util.ChainValidationResult;
 import cn.nukkit.network.process.SessionState;
 import cn.nukkit.network.process.handler.InGamePacketHandler;
-import cn.nukkit.network.process.login.CertificateChainPayload;
-import cn.nukkit.network.process.login.LoginData;
-import cn.nukkit.network.process.login.TokenPayload;
 import cn.nukkit.network.protocol.*;
 import cn.nukkit.network.protocol.types.PlayerInfo;
-import cn.nukkit.utils.BinaryStream;
-import cn.nukkit.utils.ClientChainData;
 import cn.nukkit.utils.EncryptionUtils;
-import cn.nukkit.utils.Utils;
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.netty.channel.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import org.jose4j.jwa.AlgorithmConstraints;
-import org.jose4j.jws.AlgorithmIdentifiers;
-import org.jose4j.jwt.JwtClaims;
-import org.jose4j.jwt.consumer.InvalidJwtException;
-import org.jose4j.jwt.consumer.JwtConsumer;
-import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import xyz.syodo.AnyVersion;
 import xyz.syodo.processors.PEmoteProcessor;
-import xyz.syodo.utils.CloudburstRegistry;
 import xyz.syodo.utils.PBedrockPacketCodec;
 import xyz.syodo.utils.ProtocolVersion;
 
@@ -49,7 +34,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Slf4j
@@ -113,7 +97,7 @@ public class ProtocolManager implements Listener {
 
 
     @EventHandler
-    public void onLoginPacket(DataPacketReceiveEvent event) throws Exception {
+    public void onLoginPacket(DataPacketReceiveEvent event) {
         try {
             if(event.getPacket() instanceof LoginPacket packet) {
                 if(packet.protocol == ProtocolInfo.CURRENT_PROTOCOL) return;
@@ -132,6 +116,7 @@ public class ProtocolManager implements Listener {
                         ChainValidationResult result = EncryptionUtils.validatePayload(packet.authPayload);
                         String uuid = result.identityClaims().extraData.xuid;
                         players.put(uuid, player);
+                        System.out.println(1);
                         Field fConfig = StateMachine.class.getDeclaredField("config");
                         fConfig.setAccessible(true);
                         StateMachineConfig<SessionState, SessionState> config = (StateMachineConfig<SessionState, SessionState>) fConfig.get(machine);
@@ -148,7 +133,7 @@ public class ProtocolManager implements Listener {
                                 fInfo.setAccessible(true);
                                 PlayerInfo info = (PlayerInfo) fInfo.get(bedrockSession);
                                 fInfo.setAccessible(false);
-                                if(info.getUniqueId().equals(finalUuid)) {
+                                if(info.getUniqueId().toString().equals(finalUuid)) {
                                     PBedrockPacketCodec codec = new PBedrockPacketCodec(player);
                                     ChannelPipeline pipeline = bedrockSession.getPeer().getChannel().pipeline();
                                     pipeline.addBefore(BedrockPacketCodec.NAME, PBedrockPacketCodec.NAME, codec);
@@ -172,7 +157,7 @@ public class ProtocolManager implements Listener {
     }
 
     @EventHandler
-    public void on(DataPacketSendEvent event) {
+    public void onDataPacketSend(DataPacketSendEvent event) {
         Player player = event.getPlayer();
         if(player != null) {
             BedrockSession session = player.getSession();
@@ -192,21 +177,21 @@ public class ProtocolManager implements Listener {
     }
 
     @EventHandler
-    public void on(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if(players.containsKey(player.getUniqueId())) {
+        if(players.containsKey(player.getUniqueId().toString())) {
             ProtocolVersion version = get(player).getVersion();
             AnyVersion.getPlugin().getLogger().info("§e" + player.getName() + " joined with outdated Minecraft §c" + version.version() + " §e(" + version.protocol() + ")");
         }
     }
 
     @EventHandler
-    public void on(PlayerQuitEvent event) {
-        players.remove(event.getPlayer().getUniqueId());
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        players.remove(event.getPlayer().getUniqueId().toString());
     }
 
     public static ProtocolPlayer get(UUID uuid) {
-        return players.get(uuid);
+        return players.get(uuid.toString());
     }
 
     public static ProtocolPlayer get(Player player) {
