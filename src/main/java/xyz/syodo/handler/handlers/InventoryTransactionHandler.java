@@ -7,13 +7,13 @@ import cn.nukkit.block.BlockState;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.BlockFace;
+import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.ByteTag;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.Tag;
 import lombok.Value;
 import org.cloudburstmc.math.vector.Vector3i;
-import org.cloudburstmc.nbt.NbtMap;
-import org.cloudburstmc.nbt.NbtMapBuilder;
+import org.cloudburstmc.nbt.*;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleBlockDefinition;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
@@ -23,7 +23,12 @@ import xyz.syodo.handler.PacketHandler;
 import xyz.syodo.manager.ProtocolPlayer;
 import xyz.syodo.registries.Registries;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
 
 import static cn.nukkit.network.protocol.InventoryTransactionPacket.USE_ITEM_ACTION_CLICK_BLOCK;
 import static org.cloudburstmc.protocol.bedrock.data.inventory.transaction.InventoryTransactionType.ITEM_USE;
@@ -95,18 +100,16 @@ public class InventoryTransactionHandler extends PacketHandler<InventoryTransact
         }
     }
 
-    private NbtMap deepcopy(CompoundTag tag) {
-        NbtMapBuilder nbtMapBuilder = NbtMap.builder();
-        for(var kv : tag.getTags().entrySet()) {
-            String k = kv.getKey();
-            Tag v = kv.getValue();
-            if(v instanceof CompoundTag subTag) {
-                nbtMapBuilder.put(k, deepcopy(subTag));
-            } else if(v instanceof ByteTag subTag) {
-                nbtMapBuilder.putByte(k, (byte) subTag.data);
-            } else nbtMapBuilder.put(k, v.parseValue());
+    public static NbtMap deepcopy(CompoundTag tag) {
+        try {
+            byte[] bytes = NBTIO.write(tag, ByteOrder.LITTLE_ENDIAN);
+            try(InputStream stream = new ByteArrayInputStream(bytes);
+                NBTInputStream v = NbtUtils.createReaderLE(stream)) {
+                return (NbtMap) v.readTag(Integer.MAX_VALUE);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return nbtMapBuilder.build();
     }
 
 }

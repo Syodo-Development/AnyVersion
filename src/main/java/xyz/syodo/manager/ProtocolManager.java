@@ -116,7 +116,6 @@ public class ProtocolManager implements Listener {
                         ChainValidationResult result = EncryptionUtils.validatePayload(packet.authPayload);
                         String uuid = result.identityClaims().extraData.xuid;
                         players.put(uuid, player);
-                        System.out.println(1);
                         Field fConfig = StateMachine.class.getDeclaredField("config");
                         fConfig.setAccessible(true);
                         StateMachineConfig<SessionState, SessionState> config = (StateMachineConfig<SessionState, SessionState>) fConfig.get(machine);

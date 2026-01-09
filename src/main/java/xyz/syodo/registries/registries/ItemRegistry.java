@@ -34,6 +34,7 @@ public class ItemRegistry extends Registry {
 
     @Override
     public void init() {
+        TABLES.add(new ItemDataTable_1_21_130());
         TABLES.add(new ItemDataTable_1_21_110());
         TABLES.add(new ItemDataTable_1_21_90());
         TABLES.add(new ItemDataTable_1_21_70());

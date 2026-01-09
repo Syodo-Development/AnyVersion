@@ -14,6 +14,7 @@ public class EntityRegistry extends Registry {
 
     @Override
     public void init() {
+        TABLES.add(new EntityTable_1_21_130());
         TABLES.add(new EntityTable_1_21_110());
         TABLES.add(new EntityTable_1_21_90());
         TABLES.add(new EntityTable_1_21_0());

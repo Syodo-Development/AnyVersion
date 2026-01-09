@@ -10,7 +10,6 @@ import xyz.syodo.utils.definition.BlockStateDefinition;
 import xyz.syodo.utils.table.blockstate.*;
 
 import java.util.Comparator;
-import java.util.HashMap;
 
 public class BlockStateRegistry extends Registry {
 

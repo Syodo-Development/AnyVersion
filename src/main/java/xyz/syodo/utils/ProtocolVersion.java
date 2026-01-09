@@ -65,6 +65,7 @@ import org.cloudburstmc.protocol.bedrock.codec.v819.Bedrock_v819;
 import org.cloudburstmc.protocol.bedrock.codec.v827.Bedrock_v827;
 import org.cloudburstmc.protocol.bedrock.codec.v844.Bedrock_v844;
 import org.cloudburstmc.protocol.bedrock.codec.v859.Bedrock_v859;
+import org.cloudburstmc.protocol.bedrock.codec.v898.Bedrock_v898;
 import org.cloudburstmc.protocol.bedrock.data.EncodingSettings;
 
 import java.util.Arrays;
@@ -125,7 +126,8 @@ public enum ProtocolVersion {
     MINECRAFT_PE_1_21_100(827, Bedrock_v827.CODEC),
     MINECRAFT_PE_1_21_110(844, Bedrock_v844.CODEC),
     MINECRAFT_PE_1_21_120(859,Bedrock_v859.CODEC),
-    MINECRAFT_PE_1_21_124(860,Bedrock_v859.CODEC);
+    MINECRAFT_PE_1_21_124(860,Bedrock_v859.CODEC),
+    MINECRAFT_PE_1_21_130(898, Bedrock_v898.CODEC);
 
 
     @Getter

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xyz.syodo</groupId>
     <artifactId>AnyVersion</artifactId>
-    <version>2.3.1</version>
+    <version>2.3.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,7 +95,7 @@
         <dependency>
             <groupId>org.cloudburstmc.protocol</groupId>
             <artifactId>bedrock-codec</artifactId>
-            <version>3.0.0.Beta11-SNAPSHOT</version>
+            <version>3.0.0.Beta11-20251212.150341-16</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
