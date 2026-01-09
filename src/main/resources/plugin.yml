@@ -1,6 +1,6 @@
 name: AnyVersion
 api: 2.0.0
 main: xyz.syodo.AnyVersion
-version: 2.3.2
+version: 2.4.0
 author: Buddelbubi
 description: Allow older clients to join your server.
